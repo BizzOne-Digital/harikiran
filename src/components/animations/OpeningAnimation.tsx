@@ -303,9 +303,9 @@ export function OpeningAnimation() {
         }}
       />
 
-      <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:justify-center sm:px-6 sm:pt-6 sm:pb-6">
+      <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:justify-center sm:px-6 sm:pt-4 sm:pb-4">
         {/* Mobile: center first, then icon grid. Desktop: side columns */}
-        <div className="flex w-full flex-1 flex-col items-center justify-center gap-3 sm:gap-0">
+        <div className="flex w-full flex-1 flex-col items-center justify-center gap-3 pb-4 sm:gap-0 sm:pb-28 lg:pb-32">
           <div className="relative flex w-full max-w-6xl items-center justify-center gap-1 sm:gap-4 lg:gap-8">
             {/* Left icons — desktop only */}
             <div className="hidden w-[20%] max-w-[11rem] flex-col items-center gap-3 sm:flex lg:gap-4">
@@ -321,8 +321,8 @@ export function OpeningAnimation() {
             </div>
 
             {/* Center — SS2 hollow ring + clean brand stack */}
-            <div className="relative flex min-w-0 flex-1 flex-col items-center justify-center py-2 sm:py-8">
-              <div className="relative flex size-[min(68vw,210px)] items-center justify-center sm:size-[300px] lg:size-[360px]">
+            <div className="relative flex min-w-0 flex-1 flex-col items-center justify-center py-2 sm:py-6">
+              <div className="relative flex size-[min(72vw,240px)] items-center justify-center sm:size-[340px] lg:size-[400px]">
                 <motion.div
                   className="pointer-events-none absolute inset-0"
                   initial={{ opacity: 0, scale: 0.72 }}
@@ -337,7 +337,7 @@ export function OpeningAnimation() {
                 </motion.div>
 
                 <motion.div
-                  className="relative z-10 flex max-w-[82%] flex-col items-center px-2 text-center sm:max-w-[78%] sm:px-3"
+                  className="relative z-10 flex max-w-[85%] flex-col items-center px-2 text-center sm:max-w-[80%] sm:px-3"
                   initial={{ opacity: 0, y: 28, scale: 0.92 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{
@@ -346,26 +346,26 @@ export function OpeningAnimation() {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  <div className="relative mb-0.5 h-[3.25rem] w-[5.75rem] overflow-hidden sm:mb-1 sm:h-[5.25rem] sm:w-[9.5rem] lg:h-[6rem] lg:w-[11rem]">
+                  <div className="relative mb-1 h-[4.5rem] w-[8rem] overflow-hidden sm:mb-2 sm:h-[7.25rem] sm:w-[13rem] lg:h-[8.5rem] lg:w-[15rem]">
                     <Image
                       src="/logo/logo.png?v=2"
                       alt={SITE_DEFAULTS.businessName}
-                      width={280}
-                      height={210}
+                      width={320}
+                      height={240}
                       priority
                       unoptimized
                       className="absolute left-1/2 top-0 h-[145%] w-[145%] max-w-none -translate-x-1/2 object-contain object-top"
                     />
                   </div>
-                  <p className="font-display text-[0.95rem] font-semibold tracking-wide text-white sm:text-xl lg:text-2xl">
+                  <p className="font-display text-[1.15rem] font-semibold tracking-wide text-white sm:text-2xl lg:text-[1.75rem]">
                     TopAdvice
                     <span className="text-[#7dd3fc]">4U</span>
                   </p>
-                  <p className="mt-0.5 text-[7px] font-medium tracking-[0.22em] text-white/75 uppercase sm:mt-1 sm:text-[10px] sm:tracking-[0.34em]">
+                  <p className="mt-0.5 text-[8px] font-medium tracking-[0.22em] text-white/75 uppercase sm:mt-1 sm:text-[11px] sm:tracking-[0.34em]">
                     Financial Services Inc.
                   </p>
-                  <div className="mt-2 h-px w-12 bg-gradient-to-r from-transparent via-[#f0a020]/90 to-transparent sm:mt-3 sm:w-20" />
-                  <p className="mt-1.5 flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-[7px] font-semibold tracking-[0.1em] uppercase sm:mt-2 sm:gap-x-1.5 sm:text-[10px] sm:tracking-[0.18em]">
+                  <div className="mt-2 h-px w-14 bg-gradient-to-r from-transparent via-[#f0a020]/90 to-transparent sm:mt-3 sm:w-24" />
+                  <p className="mt-1.5 flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-[8px] font-semibold tracking-[0.1em] uppercase sm:mt-2 sm:gap-x-1.5 sm:text-[11px] sm:tracking-[0.18em]">
                     <span className="text-[#22d3ee]">Protect.</span>
                     <span className="text-[#c084fc]">Finance.</span>
                     <span className="text-[#38bdf8]">Grow.</span>
@@ -405,7 +405,7 @@ export function OpeningAnimation() {
         </div>
 
         <motion.div
-          className="relative z-20 mx-auto w-full max-w-[28rem] shrink-0 px-2 pb-1 sm:absolute sm:inset-x-0 sm:bottom-10 sm:pb-0"
+          className="relative z-20 mx-auto mt-2 w-full max-w-[28rem] shrink-0 px-2 pb-1 sm:absolute sm:inset-x-0 sm:bottom-5 sm:mt-0 sm:pb-0 lg:bottom-7"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{

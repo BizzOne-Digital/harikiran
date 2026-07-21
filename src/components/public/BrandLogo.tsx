@@ -16,20 +16,24 @@ interface BrandLogoProps {
 
 /** Transparent wordmark at /logo/logo.png (approx 941×695) */
 const sizes = {
-  sm: { className: "h-9 w-auto max-w-[7.5rem] sm:h-11 sm:max-w-[9rem]", width: 188, height: 140 },
-  md: {
-    className: "h-10 w-auto max-w-[8.5rem] sm:h-14 sm:max-w-[11rem]",
-    width: 236,
-    height: 176,
+  sm: {
+    className: "h-10 w-auto max-w-[8.5rem] sm:h-12 sm:max-w-[10rem]",
+    width: 200,
+    height: 148,
   },
-  lg: {
-    className: "h-14 w-auto max-w-[11rem] sm:h-[4.75rem] sm:max-w-[15rem]",
+  md: {
+    className: "h-12 w-auto max-w-[10.5rem] sm:h-16 sm:max-w-[13.5rem]",
     width: 280,
     height: 208,
   },
+  lg: {
+    className: "h-16 w-auto max-w-[13rem] sm:h-[5.25rem] sm:max-w-[16rem]",
+    width: 320,
+    height: 236,
+  },
   xl: {
     className:
-      "h-16 w-auto max-w-[13rem] sm:h-28 sm:max-w-[20rem] lg:h-32 lg:max-w-[22rem]",
+      "h-[5.5rem] w-auto max-w-[16rem] sm:h-28 sm:max-w-[20rem] lg:h-32 lg:max-w-[22rem]",
     width: 352,
     height: 260,
   },

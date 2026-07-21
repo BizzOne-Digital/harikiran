@@ -73,8 +73,12 @@ export function Header({
             : "bg-transparent",
         )}
       >
-        <div className="container-wide flex min-h-[4.25rem] items-center justify-between gap-2 py-2 sm:min-h-[4.75rem] sm:gap-3 lg:min-h-[5.25rem]">
-          <BrandLogo priority size="md" className="shrink-0 lg:[&_img]:h-[4.5rem] lg:[&_img]:max-w-[14rem]" />
+        <div className="container-wide flex min-h-[4.5rem] items-center justify-between gap-2 py-2 sm:min-h-[5.25rem] sm:gap-3 lg:min-h-[5.75rem]">
+          <BrandLogo
+            priority
+            size="lg"
+            className="shrink-0 lg:[&_img]:h-[5.5rem] lg:[&_img]:max-w-[17rem]"
+          />
 
           <nav
             className="hidden items-center gap-0.5 lg:flex"
