@@ -291,7 +291,7 @@ export function OpeningAnimation() {
             </div>
 
             <div className="relative flex min-h-0 min-w-0 flex-1 flex-col items-center justify-center gap-3 sm:gap-4">
-              <div className="relative flex size-[min(68vw,260px)] items-center justify-center sm:size-[min(44vh,340px)] lg:size-[min(48vh,390px)]">
+              <div className="relative flex size-[min(72vw,300px)] items-center justify-center sm:size-[min(48vh,380px)] lg:size-[min(52vh,440px)]">
                 <div
                   className="pointer-events-none absolute inset-0"
                   style={{
@@ -302,12 +302,12 @@ export function OpeningAnimation() {
                 </div>
 
                 <div
-                  className="relative z-10 flex max-w-[85%] flex-col items-center px-2 text-center sm:max-w-[80%] sm:px-3"
+                  className="relative z-10 flex max-w-[88%] flex-col items-center px-2 text-center sm:max-w-[82%] sm:px-3"
                   style={{
                     animation: `intro-fade-up 1.1s cubic-bezier(0.22, 1, 0.36, 1) ${TIMING.center + 0.25}s both`,
                   }}
                 >
-                  <div className="relative mb-1 h-[4.5rem] w-[8rem] overflow-hidden sm:mb-1.5 sm:h-[6.5rem] sm:w-[12rem] lg:h-[7.5rem] lg:w-[14rem]">
+                  <div className="relative mb-1.5 h-[5.25rem] w-[9.5rem] overflow-hidden sm:mb-2 sm:h-[7.75rem] sm:w-[14rem] lg:h-[9rem] lg:w-[16.5rem]">
                     <Image
                       src="/logo/logo.png?v=2"
                       alt={SITE_DEFAULTS.businessName}
@@ -318,7 +318,7 @@ export function OpeningAnimation() {
                       className="absolute left-1/2 top-0 h-[145%] w-[145%] max-w-none -translate-x-1/2 object-contain object-top"
                     />
                   </div>
-                  <p className="font-display text-[1.1rem] font-semibold tracking-wide text-white sm:text-2xl lg:text-[1.75rem]">
+                  <p className="font-display text-[1.25rem] font-semibold tracking-wide text-white sm:text-[1.75rem] lg:text-[2rem]">
                     TopAdvice
                     <span className="text-[#7dd3fc]">4U</span>
                   </p>
@@ -343,13 +343,13 @@ export function OpeningAnimation() {
               >
                 {ADVISORS.map((person) => (
                   <div key={person.name} className="flex flex-col items-center">
-                    <div className="relative size-16 overflow-hidden rounded-full border border-white/30 shadow-[0_0_22px_rgba(34,211,238,0.3)] sm:size-[4.75rem] lg:size-[5.5rem]">
+                    <div className="relative size-[4.75rem] overflow-hidden rounded-full border border-white/30 shadow-[0_0_22px_rgba(34,211,238,0.3)] sm:size-[5.75rem] lg:size-[6.75rem]">
                       <Image
                         src={person.src}
                         alt={person.name}
                         fill
                         unoptimized
-                        sizes="88px"
+                        sizes="108px"
                         className={
                           person.name.includes("Harkiran")
                             ? "object-cover object-[center_22%]"
@@ -357,7 +357,7 @@ export function OpeningAnimation() {
                         }
                       />
                     </div>
-                    <p className="mt-1.5 max-w-[5.5rem] text-center text-[10px] font-semibold leading-tight tracking-wide text-white/95 sm:max-w-[6.5rem] sm:text-[11px]">
+                    <p className="mt-2 max-w-[6.5rem] text-center text-[11px] font-semibold leading-tight tracking-wide text-white/95 sm:max-w-[7.5rem] sm:text-[12px] lg:text-[13px]">
                       {person.name}
                     </p>
                   </div>

@@ -10,6 +10,7 @@ import {
   Home,
   Mail,
   MapPin,
+  MonitorSmartphone,
   Phone,
   Scale,
   Shield,
@@ -100,6 +101,12 @@ const solutions: {
     href: "/services/business-loans",
     icon: Briefcase,
     color: "#A78BFA",
+  },
+  {
+    label: "POS Systems",
+    href: "/services/pos-systems",
+    icon: MonitorSmartphone,
+    color: "#34D399",
   },
   {
     label: "Employee Benefits",

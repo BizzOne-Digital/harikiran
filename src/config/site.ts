@@ -72,6 +72,7 @@ export const SERVICE_SLUGS = [
   "estate-planning-coordination",
   "investments",
   "retirement-solutions",
+  "pos-systems",
 ] as const;
 
 export const LEAD_STATUSES = [

@@ -334,7 +334,8 @@ export async function getHeaderNavigation() {
     );
     const megaMenuGroups =
       hrefs.has("/services/private-mortgages") &&
-      hrefs.has("/services/reverse-mortgage")
+      hrefs.has("/services/reverse-mortgage") &&
+      hrefs.has("/services/pos-systems")
         ? dbGroups
         : FALLBACK_HEADER_NAV.megaMenuGroups;
 

@@ -722,6 +722,61 @@ export const FALLBACK_SERVICES: PublicService[] = [
         "Educational retirement planning conversations — savings, income pathways and clear next steps.",
     },
   },
+  {
+    id: "pos-systems",
+    name: "POS Systems",
+    slug: "pos-systems",
+    shortDescription:
+      "Point-of-sale, AI ordering and website solutions for restaurants and retail businesses.",
+    summary:
+      "A dedicated business-technology pathway covering StarPOS retail & hospitality systems, Aiorders.io ordering tools, and custom website solutions — alongside your broader financial conversations.",
+    content: `<p>Many business owners need more than insurance and financing — they also need reliable technology to take payments, accept orders and present their brand online.</p><p>TopAdvice4U now offers a dedicated <strong>POS Systems</strong> pathway focused on three practical offerings:</p><h2>StarPOS</h2><p><a href="https://starpos.ca/" target="_blank" rel="noopener noreferrer">StarPOS</a> provides retail and hospitality point-of-sale solutions — tailored technology for businesses that need dependable in-store and hospitality systems.</p><h2>Aiorders.io</h2><p><a href="https://aiorders.io/" target="_blank" rel="noopener noreferrer">Aiorders.io</a> supports restaurants with AI-powered ordering and related growth tools — helping operators take and manage orders with clearer digital workflows.</p><h2>Websites</h2><p>We also support business website conversations — so your online presence can align with how you sell, take orders and present your services.</p><p>This page is educational. Final systems, pricing, timelines and suitability depend on your business needs and the relevant technology providers. A consultation is a conversation about goals and next steps — not a guaranteed installation or rate quote.</p>`,
+    icon: "MonitorSmartphone",
+    group: "financing",
+    audienceFilters: ["business"],
+    targetAudience: [
+      "Restaurant and hospitality owners",
+      "Retail operators",
+      "Business owners modernizing payments and ordering",
+    ],
+    challenges: [
+      "Choosing POS technology that fits day-to-day operations",
+      "Connecting online ordering to the front of house",
+      "Keeping websites aligned with how the business actually sells",
+    ],
+    benefits: [
+      "Clear conversations about StarPOS pathways",
+      "Introduction to Aiorders.io ordering tools",
+      "Website solution discussions for business presence",
+      "One advisory relationship that can connect finance and operations tech",
+    ],
+    processSteps: [
+      {
+        title: "Share how you operate",
+        description:
+          "Retail, hospitality, ordering volume and what is broken today.",
+      },
+      {
+        title: "Review the three pathways",
+        description:
+          "StarPOS, Aiorders.io and website options explained in plain language.",
+      },
+      {
+        title: "Outline next steps",
+        description:
+          "We help you decide what to explore first — without pressure or fabricated promises.",
+      },
+    ],
+    featured: true,
+    sortOrder: 13,
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
+    seo: {
+      title: "POS Systems | TopAdvice4U",
+      description:
+        "POS, AI ordering and website solutions for restaurants and retail — StarPOS, Aiorders.io and business websites.",
+    },
+  },
 ];
 
 export const FALLBACK_TEAM_MEMBERS: PublicTeamMember[] = [
@@ -988,6 +1043,10 @@ export const FALLBACK_HEADER_NAV = {
           href: "/services/reverse-mortgage",
         },
         { label: "Business Loans", href: "/services/business-loans" },
+        {
+          label: "POS Systems",
+          href: "/services/pos-systems",
+        },
       ],
     },
     {

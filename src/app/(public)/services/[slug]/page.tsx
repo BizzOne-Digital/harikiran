@@ -12,6 +12,7 @@ import {
   Landmark,
   ScrollText,
   LineChart,
+  MonitorSmartphone,
   PiggyBank,
   RefreshCw,
   Shield,
@@ -45,6 +46,7 @@ const iconMap: Record<string, LucideIcon> = {
   PiggyBank,
   Handshake,
   RefreshCw,
+  MonitorSmartphone,
 };
 
 interface ServicePageProps {

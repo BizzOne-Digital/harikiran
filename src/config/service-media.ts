@@ -49,6 +49,10 @@ export const SERVICE_IMAGES: Record<string, { url: string; alt: string }> = {
     url: "/images/Services-4.png",
     alt: "Retirement planning discussion",
   },
+  "pos-systems": {
+    url: "/images/Services-1.png",
+    alt: "Business technology and point-of-sale systems",
+  },
 };
 
 export function serviceImage(
