@@ -104,7 +104,7 @@ function IntroIcon({
     : side === "left"
       ? -280
       : 280;
-  const fromY = compact ? 40 : -90;
+  const fromY = compact ? 40 : -36;
   const fromRot = side === "left" ? -18 : 18;
   const delay = TIMING.icons + index * 0.18;
 
@@ -165,7 +165,7 @@ function IntroIcon({
               "h-auto object-contain drop-shadow-[0_0_14px_rgba(0,180,255,0.25)]",
               compact
                 ? "w-[4.75rem]"
-                : "w-[5.25rem] sm:w-[6.5rem] lg:w-[7.5rem] xl:w-[8.25rem]",
+                : "w-[clamp(4.25rem,9.5vh,6.75rem)] lg:w-[clamp(4.75rem,10.5vh,7.5rem)]",
             )}
           />
         </motion.div>
@@ -303,12 +303,12 @@ export function OpeningAnimation() {
         }}
       />
 
-      <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:justify-center sm:px-6 sm:pt-4 sm:pb-4">
-        {/* Mobile: center first, then icon grid. Desktop: side columns */}
-        <div className="flex w-full flex-1 flex-col items-center justify-center gap-3 pb-4 sm:gap-0 sm:pb-28 lg:pb-32">
-          <div className="relative flex w-full max-w-6xl items-center justify-center gap-1 sm:gap-4 lg:gap-8">
+      <div className="relative z-10 flex h-full min-h-0 w-full flex-col px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6">
+        {/* Stage — fits inside viewport; icons never clip top/bottom */}
+        <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-2 sm:gap-0">
+          <div className="flex h-[min(72vh,560px)] w-full max-w-6xl items-center justify-center gap-2 sm:gap-5 lg:gap-8">
             {/* Left icons — desktop only */}
-            <div className="hidden w-[20%] max-w-[11rem] flex-col items-center gap-3 sm:flex lg:gap-4">
+            <div className="hidden h-full max-h-full w-[18%] max-w-[9.5rem] flex-col items-center justify-evenly py-1 sm:flex lg:max-w-[10.5rem]">
               {LEFT_ICONS.map((icon, i) => (
                 <IntroIcon
                   key={icon.src}
@@ -320,9 +320,9 @@ export function OpeningAnimation() {
               ))}
             </div>
 
-            {/* Center — SS2 hollow ring + clean brand stack */}
-            <div className="relative flex min-w-0 flex-1 flex-col items-center justify-center py-2 sm:py-6">
-              <div className="relative flex size-[min(72vw,240px)] items-center justify-center sm:size-[340px] lg:size-[400px]">
+            {/* Center brand */}
+            <div className="relative flex min-h-0 min-w-0 flex-1 flex-col items-center justify-center">
+              <div className="relative flex size-[min(58vw,220px)] items-center justify-center sm:size-[min(38vh,300px)] lg:size-[min(42vh,340px)]">
                 <motion.div
                   className="pointer-events-none absolute inset-0"
                   initial={{ opacity: 0, scale: 0.72 }}
@@ -346,7 +346,7 @@ export function OpeningAnimation() {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  <div className="relative mb-1 h-[4.5rem] w-[8rem] overflow-hidden sm:mb-2 sm:h-[7.25rem] sm:w-[13rem] lg:h-[8.5rem] lg:w-[15rem]">
+                  <div className="relative mb-1 h-[4rem] w-[7.25rem] overflow-hidden sm:mb-1.5 sm:h-[5.75rem] sm:w-[10.5rem] lg:h-[6.75rem] lg:w-[12.5rem]">
                     <Image
                       src="/logo/logo.png?v=2"
                       alt={SITE_DEFAULTS.businessName}
@@ -357,15 +357,15 @@ export function OpeningAnimation() {
                       className="absolute left-1/2 top-0 h-[145%] w-[145%] max-w-none -translate-x-1/2 object-contain object-top"
                     />
                   </div>
-                  <p className="font-display text-[1.15rem] font-semibold tracking-wide text-white sm:text-2xl lg:text-[1.75rem]">
+                  <p className="font-display text-[1.05rem] font-semibold tracking-wide text-white sm:text-xl lg:text-2xl">
                     TopAdvice
                     <span className="text-[#7dd3fc]">4U</span>
                   </p>
-                  <p className="mt-0.5 text-[8px] font-medium tracking-[0.22em] text-white/75 uppercase sm:mt-1 sm:text-[11px] sm:tracking-[0.34em]">
+                  <p className="mt-0.5 text-[7px] font-medium tracking-[0.22em] text-white/75 uppercase sm:text-[10px] sm:tracking-[0.34em]">
                     Financial Services Inc.
                   </p>
-                  <div className="mt-2 h-px w-14 bg-gradient-to-r from-transparent via-[#f0a020]/90 to-transparent sm:mt-3 sm:w-24" />
-                  <p className="mt-1.5 flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-[8px] font-semibold tracking-[0.1em] uppercase sm:mt-2 sm:gap-x-1.5 sm:text-[11px] sm:tracking-[0.18em]">
+                  <div className="mt-2 h-px w-12 bg-gradient-to-r from-transparent via-[#f0a020]/90 to-transparent sm:mt-2.5 sm:w-20" />
+                  <p className="mt-1.5 flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-[7px] font-semibold tracking-[0.1em] uppercase sm:mt-2 sm:gap-x-1.5 sm:text-[10px] sm:tracking-[0.18em]">
                     <span className="text-[#22d3ee]">Protect.</span>
                     <span className="text-[#c084fc]">Finance.</span>
                     <span className="text-[#38bdf8]">Grow.</span>
@@ -376,7 +376,7 @@ export function OpeningAnimation() {
             </div>
 
             {/* Right icons — desktop only */}
-            <div className="hidden w-[20%] max-w-[11rem] flex-col items-center gap-3 sm:flex lg:gap-4">
+            <div className="hidden h-full max-h-full w-[18%] max-w-[9.5rem] flex-col items-center justify-evenly py-1 sm:flex lg:max-w-[10.5rem]">
               {RIGHT_ICONS.map((icon, i) => (
                 <IntroIcon
                   key={icon.src}
@@ -390,7 +390,7 @@ export function OpeningAnimation() {
           </div>
 
           {/* Mobile icon grid */}
-          <div className="grid w-full max-w-sm grid-cols-3 justify-items-center gap-x-1 gap-y-1 px-1 sm:hidden">
+          <div className="mt-1 grid w-full max-w-sm grid-cols-3 justify-items-center gap-x-1 gap-y-0.5 px-1 sm:hidden">
             {[...LEFT_ICONS, ...RIGHT_ICONS].map((icon, i) => (
               <IntroIcon
                 key={`m-${icon.src}`}
@@ -404,8 +404,9 @@ export function OpeningAnimation() {
           </div>
         </div>
 
+        {/* Progress — always in-flow so it never overlaps icons/circle */}
         <motion.div
-          className="relative z-20 mx-auto mt-2 w-full max-w-[28rem] shrink-0 px-2 pb-1 sm:absolute sm:inset-x-0 sm:bottom-5 sm:mt-0 sm:pb-0 lg:bottom-7"
+          className="relative z-20 mx-auto w-full max-w-[28rem] shrink-0 px-2 pt-2 pb-1 sm:pt-3 sm:pb-2"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
