@@ -1,36 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAuth } from "@/lib/auth/auth";
+import { getSessionCookie } from "better-auth/cookies";
 
 const publicAdminPaths = ["/admin/login"];
 
-export async function middleware(request: NextRequest) {
+function nextWithAdminFlag(request: NextRequest) {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-admin-route", "1");
+  return NextResponse.next({
+    request: { headers: requestHeaders },
+  });
+}
+
+/**
+ * Edge-safe cookie presence check only.
+ * Full session validation happens in admin layouts via requireSession() (Node).
+ */
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (!pathname.startsWith("/admin")) {
     return NextResponse.next();
   }
 
-  if (publicAdminPaths.some((p) => pathname.startsWith(p))) {
-    const session = await getAuth().api.getSession({
-      headers: request.headers,
-    });
-    if (session?.user && pathname === "/admin/login") {
+  const sessionCookie = getSessionCookie(request);
+  const isPublic = publicAdminPaths.some((p) => pathname.startsWith(p));
+
+  if (isPublic) {
+    if (sessionCookie && pathname === "/admin/login") {
       return NextResponse.redirect(new URL("/admin", request.url));
     }
-    return NextResponse.next();
+    return nextWithAdminFlag(request);
   }
 
-  const session = await getAuth().api.getSession({
-    headers: request.headers,
-  });
-
-  if (!session?.user) {
+  if (!sessionCookie) {
     const loginUrl = new URL("/admin/login", request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  return NextResponse.next();
+  return nextWithAdminFlag(request);
 }
 
 export const config = {

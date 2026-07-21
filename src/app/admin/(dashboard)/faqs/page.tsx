@@ -85,13 +85,16 @@ export default async function FaqsPage({
             cell: (r) => (
               <RowActions
                 editHref={`/admin/faqs/${r._id}`}
-                onDelete={() => deleteFaq(r._id)}
+                id={r._id}
+                deleteAction={deleteFaq}
               />
             ),
           },
         ]}
       />
-      <PaginationBar page={data.page} totalPages={data.totalPages} />
+      <Suspense fallback={null}>
+        <PaginationBar page={data.page} totalPages={data.totalPages} />
+      </Suspense>
     </div>
   );
 }

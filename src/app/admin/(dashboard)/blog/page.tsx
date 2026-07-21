@@ -85,13 +85,16 @@ export default async function BlogPage({
             cell: (r) => (
               <RowActions
                 editHref={`/admin/blog/${r._id}`}
-                onDelete={() => deleteBlogPost(r._id)}
+                id={r._id}
+                deleteAction={deleteBlogPost}
               />
             ),
           },
         ]}
       />
-      <PaginationBar page={data.page} totalPages={data.totalPages} />
+      <Suspense fallback={null}>
+        <PaginationBar page={data.page} totalPages={data.totalPages} />
+      </Suspense>
     </div>
   );
 }

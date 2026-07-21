@@ -20,7 +20,10 @@ function getMongoClient(): MongoClient {
     );
   }
 
-  cachedClient = new MongoClient(uri);
+  cachedClient = new MongoClient(uri, {
+    serverSelectionTimeoutMS: 5000,
+    connectTimeoutMS: 5000,
+  });
   return cachedClient;
 }
 
@@ -39,6 +42,23 @@ export function getAuth() {
       process.env.BETTER_AUTH_URL ||
       process.env.NEXT_PUBLIC_SITE_URL ||
       "http://localhost:3000",
+    // Dev often lands on 3001/3002 when 3000 is busy
+    trustedOrigins: [
+      process.env.BETTER_AUTH_URL,
+      process.env.NEXT_PUBLIC_SITE_URL,
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "http://localhost:3002",
+      "http://127.0.0.1:3000",
+      "http://127.0.0.1:3001",
+      "http://127.0.0.1:3002",
+    ].filter((v): v is string => Boolean(v)),
+    advanced: {
+      database: {
+        // Keep string UUIDs aligned with seed / fix-admin-auth scripts
+        generateId: () => crypto.randomUUID(),
+      },
+    },
     emailAndPassword: {
       enabled: true,
       minPasswordLength: 10,

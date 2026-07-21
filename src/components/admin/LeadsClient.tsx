@@ -25,7 +25,8 @@ import {
 } from "@/components/ui/dialog";
 import { DataTable } from "@/components/admin/DataTable";
 import { StatusBadge } from "@/components/admin/StatusBadge";
-import { ListToolbar, PaginationBar, formatDate } from "@/components/admin/ListToolbar";
+import { ListToolbar, PaginationBar } from "@/components/admin/ListToolbar";
+import { formatDate } from "@/lib/utilities/date";
 import { LEAD_STATUSES } from "@/config/site";
 import {
   getLead,

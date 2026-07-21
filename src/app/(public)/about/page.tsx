@@ -150,10 +150,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const page = await getPublishedPageBySlug("about");
   return {
     title: page?.seo.title || "About TopAdvice4U Financial Services",
-    description:
+  description:
       page?.seo.description ||
-      "Learn how TopAdvice4U helps families, property owners and businesses protect, finance and plan with clarity.",
-  };
+    "Learn how TopAdvice4U helps families, property owners and businesses protect, finance and plan with clarity.",
+};
 }
 
 export default async function AboutPage() {
@@ -358,7 +358,7 @@ export default async function AboutPage() {
               );
             })}
           </div>
-        </div>
+            </div>
       </section>
 
       {/* Process */}
@@ -439,8 +439,8 @@ export default async function AboutPage() {
                 </div>
                 <div className="flex flex-col gap-3 sm:items-start lg:items-end">
                   <Button asChild variant="gold" size="lg">
-                    <Link href="/contact">{SITE_DEFAULTS.primaryCta}</Link>
-                  </Button>
+                <Link href="/contact">{SITE_DEFAULTS.primaryCta}</Link>
+              </Button>
                   <Button asChild variant="outline" size="lg">
                     <Link href="/faq">Browse FAQs</Link>
                   </Button>

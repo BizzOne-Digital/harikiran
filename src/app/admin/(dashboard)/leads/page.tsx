@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { LeadsClient } from "@/components/admin/LeadsClient";
 import { listLeads, getLeadStatusCounts } from "@/actions/leads";
@@ -23,12 +24,14 @@ export default async function LeadsPage({
         title="Leads"
         description="Review and manage inbound leads."
       />
-      <LeadsClient
-        items={data.items}
-        page={data.page}
-        totalPages={data.totalPages}
-        statusCounts={statusCounts}
-      />
+      <Suspense fallback={null}>
+        <LeadsClient
+          items={data.items}
+          page={data.page}
+          totalPages={data.totalPages}
+          statusCounts={statusCounts}
+        />
+      </Suspense>
     </div>
   );
 }

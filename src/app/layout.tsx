@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { headers } from "next/headers";
 import { Fraunces, Instrument_Sans } from "next/font/google";
 import "@/styles/globals.css";
 import { SITE_DEFAULTS } from "@/config/site";
@@ -42,29 +43,35 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerList = await headers();
+  const isAdminRoute = headerList.get("x-admin-route") === "1";
+
   return (
     <html
       lang="en-CA"
       className={`${fraunces.variable} ${instrumentSans.variable} h-full`}
       suppressHydrationWarning
+      {...(isAdminRoute ? { "data-intro": "seen" } : {})}
     >
       <body className="flex min-h-full flex-col bg-background text-text-primary antialiased">
-        <Script id="ta4u-intro-gate" strategy="beforeInteractive">{`
-          try {
-            if (sessionStorage.getItem("ta4u-opening-seen-v5")) {
-              document.documentElement.dataset.intro = "seen";
-            } else {
+        {!isAdminRoute && (
+          <Script id="ta4u-intro-gate" strategy="beforeInteractive">{`
+            try {
+              if (sessionStorage.getItem("ta4u-opening-seen-v5")) {
+                document.documentElement.dataset.intro = "seen";
+              } else {
+                document.documentElement.dataset.intro = "pending";
+              }
+            } catch (e) {
               document.documentElement.dataset.intro = "pending";
             }
-          } catch (e) {
-            document.documentElement.dataset.intro = "pending";
-          }
-        `}</Script>
+          `}</Script>
+        )}
         {children}
       </body>
     </html>

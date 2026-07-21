@@ -8,13 +8,23 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Pencil, Trash2 } from "lucide-react";
 
+type DeleteAction = (
+  id: string,
+) => Promise<{ success: boolean; error?: string }>;
+
+/**
+ * Pass a Server Action reference + id — never an inline () => deleteX(id)
+ * from a Server Component (that cannot be serialized to the client).
+ */
 export function RowActions({
   editHref,
-  onDelete,
+  id,
+  deleteAction,
   deleteLabel = "Delete",
 }: {
   editHref: string;
-  onDelete: () => Promise<{ success: boolean; error?: string }>;
+  id: string;
+  deleteAction: DeleteAction;
   deleteLabel?: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -41,13 +51,18 @@ export function RowActions({
         loading={loading}
         onConfirm={async () => {
           setLoading(true);
-          const result = await onDelete();
-          setLoading(false);
-          if (result.success) {
-            toast.success("Deleted successfully");
-            router.refresh();
-          } else {
-            toast.error(result.error || "Delete failed");
+          try {
+            const result = await deleteAction(id);
+            if (result.success) {
+              toast.success("Deleted successfully");
+              router.refresh();
+            } else {
+              toast.error(result.error || "Delete failed");
+            }
+          } catch {
+            toast.error("Delete failed");
+          } finally {
+            setLoading(false);
           }
         }}
       />

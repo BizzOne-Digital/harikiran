@@ -14,7 +14,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/admin/StatusBadge";
-import { formatDate } from "@/components/admin/ListToolbar";
+import { formatDate } from "@/lib/utilities/date";
 import Link from "next/link";
 
 const COLORS = ["#0f172a", "#334155", "#64748b", "#94a3b8", "#cbd5e1", "#e2e8f0", "#fca5a5"];

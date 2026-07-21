@@ -377,6 +377,12 @@ html[data-intro="playing"] body::before {
   pointer-events: none;
 }
 
+/* Never cover the admin CMS with the public intro veil */
+html[data-intro="pending"] body:has([data-admin-shell])::before,
+html[data-intro="playing"] body:has([data-admin-shell])::before {
+  display: none;
+}
+
 html[data-intro="seen"] body::before {
   display: none;
 }

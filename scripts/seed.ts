@@ -51,8 +51,9 @@ async function seed() {
   if (!existingAdmin) {
     const userId = crypto.randomUUID();
     const now = new Date();
+    // Better Auth Mongo adapter maps `_id` ↔ `id`. Do not store a separate `id` field.
     await users.insertOne({
-      id: userId,
+      _id: userId as never,
       name: ADMIN_NAME,
       email: ADMIN_EMAIL.toLowerCase(),
       emailVerified: true,
@@ -62,7 +63,7 @@ async function seed() {
     });
     const hashed = await hashPassword(ADMIN_PASSWORD!);
     await accounts.insertOne({
-      id: crypto.randomUUID(),
+      _id: crypto.randomUUID() as never,
       accountId: userId,
       providerId: "credential",
       userId,

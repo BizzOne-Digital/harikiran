@@ -130,10 +130,3 @@ export function PaginationBar({
     </div>
   );
 }
-
-export function formatDate(date: string | Date) {
-  return new Intl.DateTimeFormat("en-CA", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(new Date(date));
-}

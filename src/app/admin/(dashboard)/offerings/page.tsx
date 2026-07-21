@@ -81,13 +81,16 @@ export default async function OfferingsPage({
             cell: (r) => (
               <RowActions
                 editHref={`/admin/offerings/${r._id}`}
-                onDelete={() => deleteOffering(r._id)}
+                id={r._id}
+                deleteAction={deleteOffering}
               />
             ),
           },
         ]}
       />
-      <PaginationBar page={data.page} totalPages={data.totalPages} />
+      <Suspense fallback={null}>
+        <PaginationBar page={data.page} totalPages={data.totalPages} />
+      </Suspense>
     </div>
   );
 }

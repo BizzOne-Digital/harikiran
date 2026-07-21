@@ -81,13 +81,16 @@ export default async function PagesPage({
             cell: (r) => (
               <RowActions
                 editHref={`/admin/pages/${r._id}`}
-                onDelete={() => deletePage(r._id)}
+                id={r._id}
+                deleteAction={deletePage}
               />
             ),
           },
         ]}
       />
-      <PaginationBar page={data.page} totalPages={data.totalPages} />
+      <Suspense fallback={null}>
+        <PaginationBar page={data.page} totalPages={data.totalPages} />
+      </Suspense>
     </div>
   );
 }

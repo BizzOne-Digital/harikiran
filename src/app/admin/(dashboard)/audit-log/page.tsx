@@ -1,10 +1,11 @@
 import { Suspense } from "react";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { DataTable } from "@/components/admin/DataTable";
-import { PaginationBar, formatDate } from "@/components/admin/ListToolbar";
+import { PaginationBar } from "@/components/admin/ListToolbar";
 import { AuditLogFilters } from "@/components/admin/AuditLogFilters";
 import { listAuditLogs, getAuditEntities } from "@/actions/audit-log";
 import { Badge } from "@/components/ui/badge";
+import { formatDate } from "@/lib/utilities/date";
 
 export default async function AuditLogPage({
   searchParams,
@@ -70,7 +71,9 @@ export default async function AuditLogPage({
           },
         ]}
       />
-      <PaginationBar page={data.page} totalPages={data.totalPages} />
+      <Suspense fallback={null}>
+        <PaginationBar page={data.page} totalPages={data.totalPages} />
+      </Suspense>
     </div>
   );
 }

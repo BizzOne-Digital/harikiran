@@ -1,4 +1,5 @@
 import { requireSession } from "@/lib/auth/session";
+import { AdminIntroBypass } from "@/components/admin/AdminIntroBypass";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { Topbar } from "@/components/admin/Topbar";
 import { AdminProviders } from "@/components/admin/Providers";
@@ -16,20 +17,22 @@ export default async function AdminDashboardLayout({
     "editor") as UserRole;
 
   return (
-    <AdminProviders>
-      <div className="flex h-screen bg-slate-50">
-        <Sidebar role={role} />
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <Topbar
-            user={{
-              name: session.user.name,
-              email: session.user.email,
-              role,
-            }}
-          />
-          <main className="flex-1 overflow-y-auto p-6">{children}</main>
+    <AdminIntroBypass>
+      <AdminProviders>
+        <div data-admin-shell className="flex h-screen bg-slate-50 text-slate-900">
+          <Sidebar role={role} />
+          <div className="flex flex-1 flex-col overflow-hidden">
+            <Topbar
+              user={{
+                name: session.user.name,
+                email: session.user.email,
+                role,
+              }}
+            />
+            <main className="flex-1 overflow-y-auto p-6">{children}</main>
+          </div>
         </div>
-      </div>
-    </AdminProviders>
+      </AdminProviders>
+    </AdminIntroBypass>
   );
 }

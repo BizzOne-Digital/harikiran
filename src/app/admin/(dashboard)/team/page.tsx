@@ -81,13 +81,16 @@ export default async function TeamPage({
             cell: (r) => (
               <RowActions
                 editHref={`/admin/team/${r._id}`}
-                onDelete={() => deleteTeamMember(r._id)}
+                id={r._id}
+                deleteAction={deleteTeamMember}
               />
             ),
           },
         ]}
       />
-      <PaginationBar page={data.page} totalPages={data.totalPages} />
+      <Suspense fallback={null}>
+        <PaginationBar page={data.page} totalPages={data.totalPages} />
+      </Suspense>
     </div>
   );
 }

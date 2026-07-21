@@ -1,5 +1,4 @@
 import { createAuthClient } from "better-auth/react";
 
-export const authClient = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_SITE_URL,
-});
+/** Same-origin relative API — works on any local port (3000/3001/3002…). */
+export const authClient = createAuthClient();

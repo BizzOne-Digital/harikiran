@@ -91,13 +91,16 @@ export default async function TestimonialsPage({
             cell: (r) => (
               <RowActions
                 editHref={`/admin/testimonials/${r._id}`}
-                onDelete={() => deleteTestimonial(r._id)}
+                id={r._id}
+                deleteAction={deleteTestimonial}
               />
             ),
           },
         ]}
       />
-      <PaginationBar page={data.page} totalPages={data.totalPages} />
+      <Suspense fallback={null}>
+        <PaginationBar page={data.page} totalPages={data.totalPages} />
+      </Suspense>
     </div>
   );
 }
