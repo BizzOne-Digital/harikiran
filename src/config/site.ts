@@ -8,13 +8,26 @@ export const SITE_DEFAULTS = {
   primaryCta: "Book a Free Consultation",
   secondaryCta: "Explore Our Solutions",
   trustStatement: "Advice for families, property owners and businesses.",
-  contactName: "Harkiran Panesar",
+  contactName: "Harkiran Singh",
+  contactRole: "Life Insurance and Mortgages Broker",
   email: "topadvice4you@gmail.com",
-  phone: "+1 604-837-3797",
+  phone: "604-837-3797",
   phoneHref: "tel:+16048373797",
   domain: "topadvice4u.com",
+  websiteUrl: "https://topadvice4u.com",
+  digitalCardUrl: "https://ovou.com/p/2b746ae0caff",
   description:
     "Canadian financial advisory for life insurance, mortgages, business financing, employee benefits, education planning and legacy coordination.",
+  locations: [
+    {
+      label: "Insurance",
+      lines: ["Unit 400 - 6388 Number 3 Rd", "Richmond, BC V6Y 0L4"],
+    },
+    {
+      label: "Mortgages",
+      lines: ["15055 54a Ave #103", "Surrey, BC V3S 5X7"],
+    },
+  ],
 } as const;
 
 export const BRAND_COLORS = {
@@ -51,10 +64,14 @@ export const SERVICE_SLUGS = [
   "corporate-life-insurance",
   "residential-mortgages",
   "commercial-mortgages",
+  "private-mortgages",
+  "reverse-mortgage",
   "business-loans",
   "group-health-plans",
   "resp-education-planning",
   "estate-planning-coordination",
+  "investments",
+  "retirement-solutions",
 ] as const;
 
 export const LEAD_STATUSES = [

@@ -45,7 +45,7 @@ export const PAGE_MEDIA: PageMediaSeed[] = [
       { alt: "Trusted handshake", caption: "Trusted relationship" },
       { alt: "Professional advisor", caption: "One advisory relationship" },
     ]),
-    bodyHtml: `<p>TopAdvice4U Financial Services Inc. was built for people who want clearer guidance — not more jargon. Whether you are protecting a family, financing a property, strengthening a business, or thinking about the next chapter of your legacy, we help you understand the options in front of you and take the next step with confidence.</p><p>Led by <strong>Harkiran Panesar</strong>, our work sits at the intersection of life insurance, mortgages, business financing, employee benefits, education planning and estate-planning coordination. Instead of sending you to five different conversations, we aim to give you one trusted advisory relationship that can grow with your needs over time.</p><p>We believe good advice starts with listening. Every consultation begins with your goals, your timeline and your constraints — then we translate product and financing pathways into plain language so you can decide what fits.</p><p>Our promise is simple: educational clarity, honest next steps, and no fabricated credentials, rates or guarantees. Final terms always depend on providers, underwriting and approvals.</p>`,
+    bodyHtml: `<p>TopAdvice4U Financial Services Inc. was built for people who want clearer guidance — not more jargon. Whether you are protecting a family, financing a property, strengthening a business, or thinking about the next chapter of your legacy, we help you understand the options in front of you and take the next step with confidence.</p><p>Led by <strong>Harkiran Singh</strong>, our work sits at the intersection of life insurance, mortgages, business financing, employee benefits, education planning and estate-planning coordination. Instead of sending you to five different conversations, we aim to give you one trusted advisory relationship that can grow with your needs over time.</p><p>We believe good advice starts with listening. Every consultation begins with your goals, your timeline and your constraints — then we translate product and financing pathways into plain language so you can decide what fits.</p><p>Our promise is simple: educational clarity, honest next steps, and no fabricated credentials, rates or guarantees. Final terms always depend on providers, underwriting and approvals.</p>`,
   },
   {
     slug: "services",
@@ -94,7 +94,7 @@ export const PAGE_MEDIA: PageMediaSeed[] = [
       { alt: "Relationship-led", caption: "Relationship-led" },
       { alt: "Collaborative approach", caption: "Collaborative approach" },
     ]),
-    bodyHtml: `<p>Team profiles are published when ready. Until then, connect directly with our advisory team to start a consultation.</p><p>Led by Harkiran Panesar, TopAdvice4U focuses on clear, educational guidance for families, property owners and businesses — across protection, financing and long-term planning.</p>`,
+    bodyHtml: `<p>Team profiles are published when ready. Until then, connect directly with our advisory team to start a consultation.</p><p>Led by Harkiran Singh, TopAdvice4U focuses on clear, educational guidance for families, property owners and businesses — across protection, financing and long-term planning.</p>`,
   },
   {
     slug: "faq",

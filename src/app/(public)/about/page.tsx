@@ -22,7 +22,7 @@ import { getPublishedPageBySlug } from "@/lib/data";
 
 const DEFAULT_BODY = `
 <p>TopAdvice4U Financial Services Inc. was built for people who want clearer guidance — not more jargon. Whether you are protecting a family, financing a property, strengthening a business, or thinking about the next chapter of your legacy, we help you understand the options in front of you and take the next step with confidence.</p>
-<p>Led by <strong>Harkiran Panesar</strong>, our work sits at the intersection of life insurance, mortgages, business financing, employee benefits, education planning and estate-planning coordination. Instead of sending you to five different conversations, we aim to give you one trusted advisory relationship that can grow with your needs over time.</p>
+<p>Led by <strong>Harkiran Singh</strong>, our work sits at the intersection of life insurance, mortgages, business financing, employee benefits, education planning, investments and estate-planning coordination. Instead of sending you to five different conversations, we aim to give you one trusted advisory relationship that can grow with your needs over time.</p>
 <p>We believe good advice starts with listening. Every consultation begins with your goals, your timeline and your constraints — then we translate product and financing pathways into plain language so you can decide what fits.</p>
 `.trim();
 
@@ -75,6 +75,16 @@ const focusAreas = [
     title: "Legacy coordination",
     text: "Estate-planning introductions and coordination with qualified professionals when legal or tax advice is required.",
   },
+  {
+    icon: Landmark,
+    title: "Investments",
+    text: "TFSA, RRSP, FHSA, segregated funds, ETFs and leverage-loan conversations — explained in plain language.",
+  },
+  {
+    icon: Compass,
+    title: "Retirement solutions",
+    text: "Conversations about savings, income timing and the path from building wealth to drawing it down.",
+  },
 ];
 
 const audiences = [
@@ -97,6 +107,24 @@ const audiences = [
     icon: Scale,
     title: "Legacy planners",
     text: "Clients who want thoughtful coordination around wills, estates and next-generation planning.",
+  },
+];
+
+const professionalNetwork = [
+  {
+    icon: Home,
+    title: "Experienced realtors",
+    text: "Property professionals we can introduce when your plan involves buying, selling or aligning financing with a real-estate transaction.",
+  },
+  {
+    icon: Landmark,
+    title: "Chartered accountants",
+    text: "Tax and accounting professionals for matters that require qualified accounting advice — we coordinate, we do not replace them.",
+  },
+  {
+    icon: Scale,
+    title: "Estate-planning lawyers",
+    text: "Legal professionals for wills, estates and related documents. TopAdvice4U does not provide legal advice.",
   },
 ];
 
@@ -285,6 +313,44 @@ export default async function AboutPage() {
                     <Icon className="size-6 text-sky" />
                     <h3 className="mt-4 font-display text-xl">{item.title}</h3>
                     <p className="mt-2 text-sm text-text-secondary">
+                      {item.text}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Professionals we work with */}
+      <section className="section-padding pt-0">
+        <div className="container-wide">
+          <Reveal>
+            <p className="text-sm font-semibold tracking-[0.22em] text-sky uppercase">
+              Professionals we work with
+            </p>
+            <h2 className="mt-3 max-w-2xl font-display text-3xl sm:text-4xl">
+              Coordinated introductions when your plan needs more than one desk
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-text-secondary">
+              When your situation touches real estate, tax or legal documents, we
+              can help coordinate conversations with experienced professionals.
+              These partners are independent — TopAdvice4U does not provide legal
+              or accounting advice.
+            </p>
+          </Reveal>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {professionalNetwork.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <Reveal key={item.title} delay={0.05 * i}>
+                  <div className="glass-panel h-full rounded-2xl p-6">
+                    <span className="inline-flex size-11 items-center justify-center rounded-xl bg-sky/15 text-sky">
+                      <Icon className="size-5" />
+                    </span>
+                    <h3 className="mt-5 font-display text-xl">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-text-secondary">
                       {item.text}
                     </p>
                   </div>

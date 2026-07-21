@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useLayoutEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { SITE_DEFAULTS } from "@/config/site";
 import { cn } from "@/lib/utilities/cn";
 
-const STORAGE_KEY = "ta4u-opening-seen-v3";
+const STORAGE_KEY = "ta4u-opening-seen-v5";
 
 const LEFT_ICONS = [
   { src: "/intro/icon-protect.png", alt: "Protect Your Family" },
@@ -20,21 +20,36 @@ const RIGHT_ICONS = [
   { src: "/intro/icon-trusted.png", alt: "Trusted Advice" },
 ] as const;
 
-/** Slow, calm choreography (~9s) then soft exit */
+const ADVISORS = [
+  {
+    src: "/team/harkiran-singh.png?v=4",
+    name: "Harkiran Singh",
+  },
+  {
+    src: "/team/jennifer-chan.png",
+    name: "Jennifer Chan",
+  },
+] as const;
+
+/** Longer stay so advisor photos remain visible (~12.5s) */
 const TIMING = {
-  bg: 0,
   icons: 0.85,
   center: 2.5,
-  progress: 3.8,
-  progressFill: 4.2,
-  exitAt: 8.4,
-  doneAt: 9.4,
+  advisors: 3.1,
+  progress: 4.2,
+  progressFill: 5.5,
+  exitAt: 11.8,
+  doneAt: 12.9,
 } as const;
+
+function prefersReducedMotion() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
 
 function GlowRing({ className }: { className?: string }) {
   return (
     <div className={cn("relative", className)}>
-      {/* Soft bloom behind the ring */}
       <div
         className="absolute -inset-6 rounded-full opacity-80 blur-3xl"
         style={{
@@ -42,8 +57,6 @@ function GlowRing({ className }: { className?: string }) {
             "radial-gradient(circle at 30% 50%, rgba(34,211,238,0.45) 0%, transparent 45%), radial-gradient(circle at 75% 50%, rgba(240,160,32,0.35) 0%, transparent 48%)",
         }}
       />
-
-      {/* Outer glow halo */}
       <div
         className="absolute inset-0 rounded-full opacity-90 blur-md"
         style={{
@@ -54,8 +67,6 @@ function GlowRing({ className }: { className?: string }) {
           mask: "radial-gradient(farthest-side, transparent calc(100% - 14px), #000 calc(100% - 10px))",
         }}
       />
-
-      {/* Main hollow ring — cyan left → gold right */}
       <div
         className="absolute inset-0 rounded-full"
         style={{
@@ -68,8 +79,6 @@ function GlowRing({ className }: { className?: string }) {
             "0 0 28px rgba(34,211,238,0.35), 0 0 48px rgba(240,160,32,0.2)",
         }}
       />
-
-      {/* Inner thin accent ring */}
       <div
         className="absolute inset-[10px] rounded-full opacity-70"
         style={{
@@ -97,94 +106,59 @@ function IntroIcon({
   index: number;
   compact?: boolean;
 }) {
-  const fromX = compact
-    ? side === "left"
-      ? -80
-      : 80
-    : side === "left"
-      ? -280
-      : 280;
-  const fromY = compact ? 40 : -36;
-  const fromRot = side === "left" ? -18 : 18;
   const delay = TIMING.icons + index * 0.18;
+  const enterName = compact
+    ? side === "left"
+      ? "intro-icon-in-left-sm"
+      : "intro-icon-in-right-sm"
+    : side === "left"
+      ? "intro-icon-in-left"
+      : "intro-icon-in-right";
 
   return (
-    <motion.div
+    <div
       className="will-change-transform"
-      animate={{
-        y: [0, index % 2 === 0 ? -5 : -3, 0],
-      }}
-      transition={{
-        delay: delay + 1.1,
-        duration: 3.4 + index * 0.4,
-        repeat: Infinity,
-        ease: "easeInOut",
+      style={{
+        animation: `intro-float ${3.4 + index * 0.4}s ease-in-out ${delay + 1.1}s infinite`,
       }}
     >
-      <motion.div
-        initial={{
-          x: fromX,
-          y: fromY,
-          rotate: fromRot,
-          opacity: 0,
-          scale: compact ? 1.15 : 1.35,
-        }}
-        animate={{
-          x: 0,
-          y: 0,
-          rotate: 0,
-          opacity: 1,
-          scale: 1,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: compact ? 200 : 160,
-          damping: 18,
-          mass: 1.2,
-          delay,
+      <div
+        style={{
+          animation: `${enterName} 1.05s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s both`,
         }}
       >
-        <motion.div
-          initial={{ scaleY: 1 }}
-          animate={{ scaleY: [1, 0.92, 1.03, 1] }}
-          transition={{
-            delay: delay + 0.45,
-            duration: 0.5,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="origin-bottom"
-        >
-          <Image
-            src={src}
-            alt={alt}
-            width={280}
-            height={320}
-            unoptimized
-            priority
-            className={cn(
-              "h-auto object-contain drop-shadow-[0_0_14px_rgba(0,180,255,0.25)]",
-              compact
-                ? "w-[4.75rem]"
-                : "w-[clamp(4.25rem,9.5vh,6.75rem)] lg:w-[clamp(4.75rem,10.5vh,7.5rem)]",
-            )}
-          />
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        <Image
+          src={src}
+          alt={alt}
+          width={280}
+          height={320}
+          unoptimized
+          priority
+          className={cn(
+            "h-auto object-contain drop-shadow-[0_0_14px_rgba(0,180,255,0.25)]",
+            compact
+              ? "w-[4.75rem]"
+              : "w-[clamp(4.25rem,9.5vh,6.75rem)] lg:w-[clamp(4.75rem,10.5vh,7.5rem)]",
+          )}
+        />
+      </div>
+    </div>
   );
 }
 
 /**
- * Cinematic first-visit intro: BG springs up, icons crush in from sides,
- * center brand appears, progress fills to 100%, then fades out.
+ * Cinematic first-visit intro — CSS animations only.
+ * Motion/Framer caused removeChild NotFoundErrors on dismiss with React 19.
  */
 export function OpeningAnimation() {
-  const reduced = useReducedMotion();
   const [phase, setPhase] = useState<"idle" | "play" | "exit" | "done">("idle");
   const [pct, setPct] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useLayoutEffect(() => {
-    if (reduced) {
+    setMounted(true);
+
+    if (prefersReducedMotion()) {
       document.documentElement.dataset.intro = "seen";
       setPhase("done");
       return;
@@ -209,7 +183,6 @@ export function OpeningAnimation() {
       TIMING.exitAt * 1000,
     );
     const doneTimer = window.setTimeout(() => {
-      document.documentElement.dataset.intro = "seen";
       setPhase("done");
     }, TIMING.doneAt * 1000);
 
@@ -217,7 +190,13 @@ export function OpeningAnimation() {
       window.clearTimeout(exitTimer);
       window.clearTimeout(doneTimer);
     };
-  }, [reduced]);
+  }, []);
+
+  useEffect(() => {
+    if (phase !== "done") return;
+    document.documentElement.dataset.intro = "seen";
+    document.body.style.overflow = "";
+  }, [phase]);
 
   useEffect(() => {
     if (phase !== "play") return;
@@ -249,14 +228,14 @@ export function OpeningAnimation() {
         document.body.style.overflow = "";
       };
     }
-    document.body.style.overflow = "";
   }, [phase]);
 
-  if (phase === "idle" || phase === "done") return null;
+  if (!mounted || phase === "idle" || phase === "done") return null;
 
-  return (
+  const shell = (
     <div
       data-opening-intro
+      data-phase={phase}
       className={cn(
         "fixed inset-0 z-[300] overflow-hidden bg-[#02060f]",
         "transition-opacity duration-1000 ease-out",
@@ -264,17 +243,10 @@ export function OpeningAnimation() {
       )}
       aria-hidden="true"
     >
-      {/* Background — springs up from bottom */}
-      <motion.div
+      <div
         className="absolute inset-0"
-        initial={{ y: "68%", scale: 1.06, opacity: 0.25 }}
-        animate={{ y: 0, scale: 1, opacity: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 70,
-          damping: 20,
-          mass: 1.35,
-          delay: TIMING.bg,
+        style={{
+          animation: "intro-bg-rise 1.6s cubic-bezier(0.22, 1, 0.36, 1) both",
         }}
       >
         <Image
@@ -293,7 +265,7 @@ export function OpeningAnimation() {
               "radial-gradient(ellipse 55% 50% at 50% 42%, transparent 0%, rgba(2,6,15,0.28) 55%, rgba(2,6,15,0.65) 100%)",
           }}
         />
-      </motion.div>
+      </div>
 
       <div
         className="pointer-events-none absolute inset-0"
@@ -304,10 +276,8 @@ export function OpeningAnimation() {
       />
 
       <div className="relative z-10 flex h-full min-h-0 w-full flex-col px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6">
-        {/* Stage — fits inside viewport; icons never clip top/bottom */}
         <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-2 sm:gap-0">
-          <div className="flex h-[min(72vh,560px)] w-full max-w-6xl items-center justify-center gap-2 sm:gap-5 lg:gap-8">
-            {/* Left icons — desktop only */}
+          <div className="flex h-[min(78vh,620px)] w-full max-w-6xl items-center justify-center gap-2 sm:gap-5 lg:gap-8">
             <div className="hidden h-full max-h-full w-[18%] max-w-[9.5rem] flex-col items-center justify-evenly py-1 sm:flex lg:max-w-[10.5rem]">
               {LEFT_ICONS.map((icon, i) => (
                 <IntroIcon
@@ -320,33 +290,24 @@ export function OpeningAnimation() {
               ))}
             </div>
 
-            {/* Center brand */}
-            <div className="relative flex min-h-0 min-w-0 flex-1 flex-col items-center justify-center">
-              <div className="relative flex size-[min(58vw,220px)] items-center justify-center sm:size-[min(38vh,300px)] lg:size-[min(42vh,340px)]">
-                <motion.div
+            <div className="relative flex min-h-0 min-w-0 flex-1 flex-col items-center justify-center gap-3 sm:gap-4">
+              <div className="relative flex size-[min(68vw,260px)] items-center justify-center sm:size-[min(44vh,340px)] lg:size-[min(48vh,390px)]">
+                <div
                   className="pointer-events-none absolute inset-0"
-                  initial={{ opacity: 0, scale: 0.72 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    duration: 1.35,
-                    delay: TIMING.center,
-                    ease: [0.22, 1, 0.36, 1],
+                  style={{
+                    animation: `intro-fade-in 1.35s cubic-bezier(0.22, 1, 0.36, 1) ${TIMING.center}s both`,
                   }}
                 >
                   <GlowRing className="size-full" />
-                </motion.div>
+                </div>
 
-                <motion.div
+                <div
                   className="relative z-10 flex max-w-[85%] flex-col items-center px-2 text-center sm:max-w-[80%] sm:px-3"
-                  initial={{ opacity: 0, y: 28, scale: 0.92 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{
-                    duration: 1.1,
-                    delay: TIMING.center + 0.25,
-                    ease: [0.22, 1, 0.36, 1],
+                  style={{
+                    animation: `intro-fade-up 1.1s cubic-bezier(0.22, 1, 0.36, 1) ${TIMING.center + 0.25}s both`,
                   }}
                 >
-                  <div className="relative mb-1 h-[4rem] w-[7.25rem] overflow-hidden sm:mb-1.5 sm:h-[5.75rem] sm:w-[10.5rem] lg:h-[6.75rem] lg:w-[12.5rem]">
+                  <div className="relative mb-1 h-[4.5rem] w-[8rem] overflow-hidden sm:mb-1.5 sm:h-[6.5rem] sm:w-[12rem] lg:h-[7.5rem] lg:w-[14rem]">
                     <Image
                       src="/logo/logo.png?v=2"
                       alt={SITE_DEFAULTS.businessName}
@@ -357,7 +318,7 @@ export function OpeningAnimation() {
                       className="absolute left-1/2 top-0 h-[145%] w-[145%] max-w-none -translate-x-1/2 object-contain object-top"
                     />
                   </div>
-                  <p className="font-display text-[1.05rem] font-semibold tracking-wide text-white sm:text-xl lg:text-2xl">
+                  <p className="font-display text-[1.1rem] font-semibold tracking-wide text-white sm:text-2xl lg:text-[1.75rem]">
                     TopAdvice
                     <span className="text-[#7dd3fc]">4U</span>
                   </p>
@@ -371,11 +332,39 @@ export function OpeningAnimation() {
                     <span className="text-[#38bdf8]">Grow.</span>
                     <span className="text-[#f0a020]">Preserve.</span>
                   </p>
-                </motion.div>
+                </div>
+              </div>
+
+              <div
+                className="z-20 flex items-start justify-center gap-4 sm:gap-6"
+                style={{
+                  animation: `intro-fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) ${TIMING.advisors}s both`,
+                }}
+              >
+                {ADVISORS.map((person) => (
+                  <div key={person.name} className="flex flex-col items-center">
+                    <div className="relative size-16 overflow-hidden rounded-full border border-white/30 shadow-[0_0_22px_rgba(34,211,238,0.3)] sm:size-[4.75rem] lg:size-[5.5rem]">
+                      <Image
+                        src={person.src}
+                        alt={person.name}
+                        fill
+                        unoptimized
+                        sizes="88px"
+                        className={
+                          person.name.includes("Harkiran")
+                            ? "object-cover object-[center_22%]"
+                            : "object-cover object-top"
+                        }
+                      />
+                    </div>
+                    <p className="mt-1.5 max-w-[5.5rem] text-center text-[10px] font-semibold leading-tight tracking-wide text-white/95 sm:max-w-[6.5rem] sm:text-[11px]">
+                      {person.name}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Right icons — desktop only */}
             <div className="hidden h-full max-h-full w-[18%] max-w-[9.5rem] flex-col items-center justify-evenly py-1 sm:flex lg:max-w-[10.5rem]">
               {RIGHT_ICONS.map((icon, i) => (
                 <IntroIcon
@@ -389,7 +378,6 @@ export function OpeningAnimation() {
             </div>
           </div>
 
-          {/* Mobile icon grid */}
           <div className="mt-1 grid w-full max-w-sm grid-cols-3 justify-items-center gap-x-1 gap-y-0.5 px-1 sm:hidden">
             {[...LEFT_ICONS, ...RIGHT_ICONS].map((icon, i) => (
               <IntroIcon
@@ -404,15 +392,10 @@ export function OpeningAnimation() {
           </div>
         </div>
 
-        {/* Progress — always in-flow so it never overlaps icons/circle */}
-        <motion.div
+        <div
           className="relative z-20 mx-auto w-full max-w-[28rem] shrink-0 px-2 pt-2 pb-1 sm:pt-3 sm:pb-2"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.7,
-            delay: TIMING.progress,
-            ease: [0.22, 1, 0.36, 1],
+          style={{
+            animation: `intro-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${TIMING.progress}s both`,
           }}
         >
           <p className="mb-1.5 text-center text-[9px] font-medium tracking-[0.16em] text-cyan-300/90 uppercase sm:mb-2 sm:text-[11px] sm:tracking-[0.2em]">
@@ -420,11 +403,9 @@ export function OpeningAnimation() {
           </p>
           <div className="flex items-center gap-2.5 sm:gap-3">
             <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/10 shadow-[inset_0_0_8px_rgba(0,0,0,0.4)]">
-              <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-[#2563EB] via-[#22d3ee] to-[#f0a020] shadow-[0_0_16px_rgba(34,211,238,0.55)]"
-                initial={{ width: "0%" }}
-                animate={{ width: `${pct}%` }}
-                transition={{ ease: "linear", duration: 0.05 }}
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-[#2563EB] via-[#22d3ee] to-[#f0a020] shadow-[0_0_16px_rgba(34,211,238,0.55)] transition-[width] duration-75 ease-linear"
+                style={{ width: `${pct}%` }}
               />
             </div>
             <span className="w-9 shrink-0 text-right text-[11px] font-semibold tabular-nums text-[#f0a020] sm:w-10 sm:text-sm">
@@ -434,8 +415,10 @@ export function OpeningAnimation() {
           <p className="mt-1.5 text-center text-[9px] text-white/40 sm:mt-2 sm:text-[10px]">
             Please wait…
           </p>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
+
+  return createPortal(shell, document.body);
 }

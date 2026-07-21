@@ -16,6 +16,7 @@ import {
   FALLBACK_HEADER_NAV,
   FALLBACK_SERVICES,
   FALLBACK_SITE_SETTINGS,
+  FALLBACK_TEAM_MEMBERS,
   type PublicBlogPost,
   type PublicFAQ,
   type PublicService,
@@ -96,8 +97,18 @@ export async function getPublishedServices(): Promise<PublicService[]> {
         })),
       );
     }
+    const fromDb = docs.map((doc) =>
+      mapService(doc as Parameters<typeof mapService>[0]),
+    );
+    const dbSlugs = new Set(fromDb.map((s) => s.slug));
+    const missing = FALLBACK_SERVICES.filter((s) => !dbSlugs.has(s.slug)).map(
+      (s) => ({
+        ...s,
+        image: s.image ?? serviceImage(s.slug) ?? undefined,
+      }),
+    );
     return toPlain(
-      docs.map((doc) => mapService(doc as Parameters<typeof mapService>[0])),
+      [...fromDb, ...missing].sort((a, b) => a.sortOrder - b.sortOrder),
     );
   } catch {
     return toPlain(
@@ -256,6 +267,7 @@ export async function getPublishedTeamMembers(): Promise<PublicTeamMember[]> {
     })
       .sort({ sortOrder: 1 })
       .lean();
+    if (!docs.length) return FALLBACK_TEAM_MEMBERS;
     return toPlain(
       docs.map((doc) => ({
         id: String(doc._id),
@@ -263,12 +275,13 @@ export async function getPublishedTeamMembers(): Promise<PublicTeamMember[]> {
         role: doc.role,
         shortBio: doc.shortBio,
         fullBio: doc.fullBio,
+        photoUrl: doc.photo?.url,
         featured: Boolean(doc.featured),
         sortOrder: Number(doc.sortOrder ?? 0),
       })),
     );
   } catch {
-    return [];
+    return FALLBACK_TEAM_MEMBERS;
   }
 }
 
@@ -312,13 +325,26 @@ export async function getHeaderNavigation() {
     await connectDB();
     const doc = await NavigationMenu.findOne({ key: "header" }).lean();
     if (!doc) return FALLBACK_HEADER_NAV;
+
+    const dbGroups = JSON.parse(
+      JSON.stringify(doc.megaMenuGroups ?? []),
+    ) as typeof FALLBACK_HEADER_NAV.megaMenuGroups;
+    const hrefs = new Set(
+      dbGroups.flatMap((g) => g.links.map((l) => l.href)),
+    );
+    const megaMenuGroups =
+      hrefs.has("/services/private-mortgages") &&
+      hrefs.has("/services/reverse-mortgage")
+        ? dbGroups
+        : FALLBACK_HEADER_NAV.megaMenuGroups;
+
     return {
       items: JSON.parse(
         JSON.stringify(
           doc.items.filter((i: { visible?: boolean }) => i.visible !== false),
         ),
       ),
-      megaMenuGroups: JSON.parse(JSON.stringify(doc.megaMenuGroups ?? [])),
+      megaMenuGroups,
       ctaLabel: doc.ctaLabel ?? FALLBACK_HEADER_NAV.ctaLabel,
       ctaHref: doc.ctaHref ?? FALLBACK_HEADER_NAV.ctaHref,
     };

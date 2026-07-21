@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Clock, Mail, Phone, ShieldCheck } from "lucide-react";
+import {
+  Clock,
+  CreditCard,
+  ExternalLink,
+  Mail,
+  MapPin,
+  Phone,
+  ShieldCheck,
+} from "lucide-react";
 import { PageHero } from "@/components/public/PageHero";
 import { ImageSplit } from "@/components/public/ImageSplit";
 import { RichHtml } from "@/components/shared/RichHtml";
@@ -103,20 +111,56 @@ export default async function ContactPage() {
                   );
                 })}
               </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {SITE_DEFAULTS.locations.map((loc) => (
+                  <div
+                    key={loc.label}
+                    className="rounded-2xl border border-white/10 bg-white/[0.03] p-5"
+                  >
+                    <MapPin className="size-5 text-sky" />
+                    <p className="mt-3 text-xs tracking-wide text-text-secondary uppercase">
+                      {loc.label}
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-white">
+                      {loc.lines.map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
               <div className="glass-panel rounded-xl p-6">
                 <h3 className="font-display text-xl">
                   Speaking with {SITE_DEFAULTS.contactName}
                 </h3>
+                <p className="mt-1 text-sm text-sky">{SITE_DEFAULTS.contactRole}</p>
                 <p className="mt-3 text-sm text-text-secondary">
-                  Prefer email or phone? Either works. Share a short note about
-                  your situation and we will follow up with clear next steps.
+                  Prefer email, phone, or our digital business card? Share a
+                  short note about your situation and we will follow up with
+                  clear next steps.
                 </p>
-                <Link
-                  href="/faq"
-                  className="mt-4 inline-block text-sm font-semibold text-sky hover:underline"
-                >
-                  Browse FAQs first →
-                </Link>
+                <div className="mt-4 flex flex-wrap gap-4">
+                  <a
+                    href={SITE_DEFAULTS.digitalCardUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-sky hover:underline"
+                  >
+                    <CreditCard className="size-4" />
+                    Digital business card
+                    <ExternalLink className="size-3.5 opacity-70" />
+                  </a>
+                  <Link
+                    href="/faq"
+                    className="inline-block text-sm font-semibold text-sky hover:underline"
+                  >
+                    Browse FAQs first →
+                  </Link>
+                </div>
               </div>
             </div>
           </Reveal>

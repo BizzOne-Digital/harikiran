@@ -56,7 +56,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col bg-background text-text-primary antialiased">
         <Script id="ta4u-intro-gate" strategy="beforeInteractive">{`
           try {
-            if (sessionStorage.getItem("ta4u-opening-seen-v3")) {
+            if (sessionStorage.getItem("ta4u-opening-seen-v5")) {
               document.documentElement.dataset.intro = "seen";
             } else {
               document.documentElement.dataset.intro = "pending";

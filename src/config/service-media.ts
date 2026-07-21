@@ -17,6 +17,14 @@ export const SERVICE_IMAGES: Record<string, { url: string; alt: string }> = {
     url: "/images/Service-cover-4.png",
     alt: "Commercial building exterior",
   },
+  "private-mortgages": {
+    url: "/images/Services-2.png",
+    alt: "Private mortgage planning conversation",
+  },
+  "reverse-mortgage": {
+    url: "/images/Services-5.png",
+    alt: "Home equity and reverse mortgage discussion",
+  },
   "business-loans": {
     url: "/images/Service-cover-5.png",
     alt: "Business growth meeting",
@@ -32,6 +40,14 @@ export const SERVICE_IMAGES: Record<string, { url: string; alt: string }> = {
   "estate-planning-coordination": {
     url: "/images/Service-cover-8.png",
     alt: "Legacy planning documents",
+  },
+  investments: {
+    url: "/images/Services-3.png",
+    alt: "Investment planning conversation",
+  },
+  "retirement-solutions": {
+    url: "/images/Services-4.png",
+    alt: "Retirement planning discussion",
   },
 };
 

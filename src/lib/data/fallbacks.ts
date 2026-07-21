@@ -57,6 +57,7 @@ export interface PublicTeamMember {
   role: string;
   shortBio?: string;
   fullBio?: string;
+  photoUrl?: string;
   featured: boolean;
   sortOrder: number;
 }
@@ -152,7 +153,7 @@ export const FALLBACK_SERVICES: PublicService[] = [
     summary:
       "Corporate life insurance can help support succession planning, key-person protection and business continuity goals.",
     content:
-      "<p>Corporate life insurance planning looks at how coverage may support a business if a key person is lost, or how ownership transitions can be funded more thoughtfully.</p><p>We coordinate discussions with your broader advisory team where appropriate. We do not provide legal or tax advice.</p>",
+      "<p>Corporate life insurance planning looks at how coverage may support a business if a key person is lost, or how ownership transitions can be funded more thoughtfully.</p><p>We also support <strong>advanced case conversations for professionals and business owners</strong> — more complex needs that may involve coordination with accountants, lawyers and underwriting specialists.</p><p>We coordinate discussions with your broader advisory team where appropriate. We do not provide legal or tax advice.</p>",
     icon: "Building2",
     group: "protection",
     audienceFilters: ["business"],
@@ -305,15 +306,121 @@ export const FALLBACK_SERVICES: PublicService[] = [
     },
   },
   {
+    id: "private-mortgages",
+    name: "Private Mortgages",
+    slug: "private-mortgages",
+    shortDescription:
+      "Alternative mortgage pathways when conventional lending is not the right fit.",
+    summary:
+      "Private mortgage conversations for borrowers exploring alternative financing options.",
+    content:
+      "<p>Private mortgages can be part of a conversation when conventional lending is delayed, incomplete or not the right fit for a short-term need.</p><p>We help you understand typical considerations, timelines and risks in plain language — without pressure.</p><p>Private lending involves different criteria, costs and timelines than bank mortgages. Approvals and terms are never guaranteed on this website and depend on lenders and your circumstances.</p>",
+    icon: "Handshake",
+    group: "financing",
+    audienceFilters: ["property", "business"],
+    targetAudience: [
+      "Homeowners and buyers exploring alternatives",
+      "Investors with short-term financing needs",
+      "Borrowers seeking bridge or specialty solutions",
+    ],
+    challenges: [
+      "Understanding private vs. conventional lending",
+      "Comparing cost and timeline trade-offs",
+      "Preparing a clear financing story",
+    ],
+    benefits: [
+      "Plain-language private mortgage discussions",
+      "Honest risk and cost conversations",
+      "Preparation for lender next steps",
+      "Educational guidance only — no guaranteed approvals",
+    ],
+    processSteps: [
+      {
+        title: "Clarify the need",
+        description: "Bridge, refinance, purchase or short-term capital.",
+      },
+      {
+        title: "Review your profile",
+        description: "We discuss property, equity and timeline realities.",
+      },
+      {
+        title: "Outline next steps",
+        description: "We explain options and prepare you for follow-up.",
+      },
+    ],
+    featured: true,
+    sortOrder: 5,
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
+    seo: {
+      title: "Private Mortgages | TopAdvice4U",
+      description:
+        "Private mortgage guidance for alternative and short-term property financing conversations.",
+    },
+  },
+  {
+    id: "reverse-mortgage",
+    name: "Reverse Mortgage",
+    slug: "reverse-mortgage",
+    shortDescription:
+      "Educational guidance on accessing home equity later in life.",
+    summary:
+      "Reverse mortgage conversations to help homeowners understand how home equity may support retirement cash flow.",
+    content:
+      "<p>A reverse mortgage is one way some Canadian homeowners explore accessing home equity later in life. It is not right for everyone.</p><p>We help you understand how reverse mortgages generally work, what questions to ask, and how they may relate to broader retirement and estate conversations.</p><p>This page is educational only. Suitability, eligibility, costs and terms depend on providers and your circumstances. Nothing here is a quotation, approval or recommendation.</p>",
+    icon: "RefreshCw",
+    group: "financing",
+    audienceFilters: ["family", "property", "legacy"],
+    targetAudience: [
+      "Homeowners approaching or in retirement",
+      "Families exploring equity options",
+      "Clients coordinating retirement cash flow",
+    ],
+    challenges: [
+      "Understanding how reverse mortgages work",
+      "Weighing equity access against long-term plans",
+      "Coordinating with retirement and estate goals",
+    ],
+    benefits: [
+      "Clear educational explanations",
+      "Honest suitability conversations",
+      "Coordination with retirement planning topics",
+      "No pressure — consultation first",
+    ],
+    processSteps: [
+      {
+        title: "Share your goals",
+        description: "Cash flow, renovations, debt or lifestyle needs.",
+      },
+      {
+        title: "Understand the basics",
+        description: "We explain common structures and considerations.",
+      },
+      {
+        title: "Decide next steps",
+        description: "We outline questions and pathways that fit your timeline.",
+      },
+    ],
+    featured: true,
+    sortOrder: 6,
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
+    seo: {
+      title: "Reverse Mortgage | TopAdvice4U",
+      description:
+        "Educational reverse mortgage guidance for Canadian homeowners exploring home equity options.",
+    },
+  },
+  {
     id: "business-loans",
     name: "Business Loans",
     slug: "business-loans",
     shortDescription:
-      "Advisory support for business growth and working-capital needs.",
+      "Advisory support for secured and unsecured business financing needs.",
     summary:
-      "Explore business financing conversations focused on growth, operations and opportunity.",
+      "Explore secured and unsecured business loan conversations focused on growth, operations and opportunity.",
     content:
-      "<p>Business financing needs vary widely. We help you clarify the purpose of capital, prepare for lender conversations and understand potential structures.</p><p>Approvals are never guaranteed and depend on lenders and eligibility.</p>",
+      "<p>Business financing needs vary widely — from <strong>secured</strong> facilities backed by assets to <strong>unsecured</strong> working-capital conversations.</p><p>We help you clarify the purpose of capital, prepare for lender conversations and understand potential structures.</p><p>Approvals are never guaranteed and depend on lenders and eligibility.</p>",
     icon: "Briefcase",
     group: "financing",
     audienceFilters: ["business"],
@@ -344,13 +451,13 @@ export const FALLBACK_SERVICES: PublicService[] = [
       },
     ],
     featured: true,
-    sortOrder: 5,
+    sortOrder: 7,
     ctaLabel: "Book a Free Consultation",
     ctaHref: "/contact",
     seo: {
       title: "Business Loans | TopAdvice4U",
       description:
-        "Business loan advisory for growth, operations and working-capital planning.",
+        "Business loan advisory for secured and unsecured growth and working-capital planning.",
     },
   },
   {
@@ -393,7 +500,7 @@ export const FALLBACK_SERVICES: PublicService[] = [
       },
     ],
     featured: false,
-    sortOrder: 6,
+    sortOrder: 8,
     ctaLabel: "Book a Free Consultation",
     ctaHref: "/contact",
     seo: {
@@ -442,7 +549,7 @@ export const FALLBACK_SERVICES: PublicService[] = [
       },
     ],
     featured: false,
-    sortOrder: 7,
+    sortOrder: 9,
     ctaLabel: "Book a Free Consultation",
     ctaHref: "/contact",
     seo: {
@@ -497,7 +604,7 @@ export const FALLBACK_SERVICES: PublicService[] = [
       },
     ],
     featured: true,
-    sortOrder: 8,
+    sortOrder: 10,
     ctaLabel: "Book a Free Consultation",
     ctaHref: "/contact",
     seo: {
@@ -505,6 +612,138 @@ export const FALLBACK_SERVICES: PublicService[] = [
       description:
         "Estate-planning coordination with partnered lawyers and accountants for a unified financial strategy.",
     },
+  },
+  {
+    id: "investments",
+    name: "Investments",
+    slug: "investments",
+    shortDescription:
+      "TFSA, RRSP, FHSA, segregated funds, ETFs and leverage-loan conversations — explained clearly.",
+    summary:
+      "Educational guidance on registered accounts and investment pathways, including TFSA, RRSP, FHSA, segregated funds, ETFs and leverage-loan discussions — led by our advisory team.",
+    content: `<p>Investment planning conversations at TopAdvice4U focus on clarity: how registered accounts work, what questions to ask, and how different pathways may fit your timeline and goals.</p><p>We discuss topics such as <strong>TFSA</strong>, <strong>RRSP</strong>, <strong>FHSA</strong>, <strong>segregated funds</strong>, <strong>ETFs</strong>, and <strong>leverage-loan</strong> considerations in plain language. Our advisory conversations are led by <strong>Harkiran Singh</strong> and <strong>Jennifer Chan</strong>.</p><p>Nothing on this page is a recommendation, quotation, guarantee or personalized investment advice. Suitability, returns and availability depend on your circumstances, product providers and applicable rules. A consultation is a conversation about goals and next steps — not an approval to invest.</p>`,
+    icon: "LineChart",
+    group: "future-legacy",
+    audienceFilters: ["family", "business", "legacy"],
+    targetAudience: [
+      "Individuals building long-term savings",
+      "Families using registered accounts",
+      "Clients exploring investment structure options",
+    ],
+    challenges: [
+      "Too many account types and product names",
+      "Unclear trade-offs between registered accounts",
+      "Pressure to decide without understanding the basics",
+    ],
+    benefits: [
+      "Plain-language explanations of common pathways",
+      "Room to ask questions before taking next steps",
+      "Coordination with your broader protection and financing picture",
+      "Educational clarity — no fabricated returns or guarantees",
+    ],
+    processSteps: [
+      {
+        title: "Clarify your goals",
+        description:
+          "Timeline, risk comfort and what you are saving or investing toward.",
+      },
+      {
+        title: "Review account pathways",
+        description:
+          "TFSA, RRSP, FHSA and related structures explained in practical terms.",
+      },
+      {
+        title: "Outline next steps",
+        description:
+          "Educational next steps only — final choices depend on you and the provider.",
+      },
+    ],
+    featured: true,
+    sortOrder: 11,
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
+    seo: {
+      title: "Investments | TopAdvice4U",
+      description:
+        "TFSA, RRSP, FHSA, segregated funds, ETFs and leverage-loan conversations with clear, educational guidance.",
+    },
+  },
+  {
+    id: "retirement-solutions",
+    name: "Retirement Solutions",
+    slug: "retirement-solutions",
+    shortDescription:
+      "Clear conversations about retirement income, registered accounts and the path from saving to drawing down.",
+    summary:
+      "Educational guidance for people planning toward retirement — from savings structure to income conversations — without pressure or fabricated guarantees.",
+    content: `<p>Retirement planning is rarely one product. It is a set of conversations about timing, income needs, registered accounts and how protection and investments may fit together over time.</p><p>At TopAdvice4U we help you clarify goals, understand common pathways (including RRSP, TFSA and related structures), and prepare better questions before you decide next steps. Advisory conversations are led by <strong>Harkiran Singh</strong> and <strong>Jennifer Chan</strong>.</p><p>This page is educational only. It is not a retirement income guarantee, investment recommendation or tax advice. Suitability depends on your circumstances and applicable provider rules.</p>`,
+    icon: "PiggyBank",
+    group: "future-legacy",
+    audienceFilters: ["family", "legacy"],
+    targetAudience: [
+      "Individuals approaching retirement",
+      "Families building long-term savings",
+      "Clients reviewing income and drawdown questions",
+    ],
+    challenges: [
+      "Uncertainty about when and how to draw income",
+      "Too many account and product names",
+      "Worry about tax and cash-flow surprises",
+    ],
+    benefits: [
+      "Plain-language retirement pathway discussions",
+      "Connection to protection and investment conversations",
+      "Room to ask questions before acting",
+      "Educational clarity — no fabricated rates or guarantees",
+    ],
+    processSteps: [
+      {
+        title: "Map your timeline",
+        description: "When you hope to slow down, and what income may need to cover.",
+      },
+      {
+        title: "Review building blocks",
+        description:
+          "Registered accounts and related structures explained in practical terms.",
+      },
+      {
+        title: "Outline next steps",
+        description:
+          "Educational next steps only — final choices depend on you and qualified professionals where tax advice is needed.",
+      },
+    ],
+    featured: true,
+    sortOrder: 12,
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
+    seo: {
+      title: "Retirement Solutions | TopAdvice4U",
+      description:
+        "Educational retirement planning conversations — savings, income pathways and clear next steps.",
+    },
+  },
+];
+
+export const FALLBACK_TEAM_MEMBERS: PublicTeamMember[] = [
+  {
+    id: "team-harkiran",
+    name: "Harkiran Singh",
+    role: "Life Insurance and Mortgages Broker",
+    shortBio:
+      "Lead advisor at TopAdvice4U — helping families and businesses with life insurance, mortgages, investments and retirement conversations.",
+    photoUrl: "/team/harkiran-singh.png?v=4",
+    featured: true,
+    sortOrder: 1,
+  },
+  {
+    id: "team-jennifer",
+    name: "Jennifer Chan",
+    role: "Financial Advisor",
+    shortBio:
+      "Advisory conversations focused on investments, retirement and clear next steps for families and individuals.",
+    photoUrl: "/team/jennifer-chan.png",
+    featured: true,
+    sortOrder: 2,
   },
 ];
 
@@ -617,6 +856,91 @@ export const FALLBACK_BLOG_POSTS: PublicBlogPost[] = [
     publishedAt: "2025-03-10T00:00:00.000Z",
     tags: ["estate planning", "coordination"],
   },
+  {
+    id: "blog-4",
+    title: "RRSP Withdrawals: Tax-Efficient Strategies Worth Understanding",
+    slug: "rrsp-withdrawal-tax-efficient-strategies",
+    excerpt:
+      "An educational look at common RRSP withdrawal ideas — so you can ask better questions before taking money out.",
+    content: `<p>Registered Retirement Savings Plans (RRSPs) are powerful long-term tools — and withdrawals can create unexpected tax bills if timing and structure are not considered carefully.</p><p>This article is educational only. It is not tax, legal or personalized investment advice. Rules change, and your situation is unique. Confirm details with a qualified tax professional before acting.</p><h2>Why RRSP withdrawals feel “expensive”</h2><p>Withdrawals are generally added to your taxable income for the year. That can push you into a higher tax bracket, reduce certain benefits, or create cash-flow surprises — what some people casually call paying “much more tax” than expected.</p><h2>Ideas people commonly discuss (not recommendations)</h2><ul><li><strong>Timing across tax years</strong> — spreading withdrawals when income is lower (for example, between jobs or in early retirement) may change the tax picture versus taking a large lump sum in a high-income year.</li><li><strong>Partial withdrawals</strong> — taking only what you need, when you need it, instead of emptying an account at once.</li><li><strong>Withholding vs. final tax</strong> — amounts withheld at source are not always the full tax you owe; a year-end filing can still result in more payable (or a refund).</li><li><strong>RRIF conversion timing</strong> — understanding when converting an RRSP to a RRIF may fit your retirement income plan (rules and minimums apply).</li><li><strong>Home Buyers’ Plan / Lifelong Learning Plan</strong> — where eligible, these are specific programs with conditions, not general “free withdrawals.”</li><li><strong>Coordination with other income</strong> — pensions, employment income, capital gains and benefits can all interact with RRSP income in a given year.</li></ul><h2>Questions to bring to a consultation</h2><ul><li>What is my expected income this year and next?</li><li>Am I withdrawing for a short-term need or long-term income?</li><li>Have I spoken with a tax professional about bracket and benefit impacts?</li><li>Does my broader plan (TFSA, non-registered, insurance, debt) change the order of withdrawals?</li></ul><p>At TopAdvice4U, we help you prepare clearer questions and understand how RRSP conversations sit beside protection, financing and other planning topics. We do not provide tax advice. For tax treatment, speak with a qualified accountant or tax advisor.</p><p>Ready to talk through your goals? <a href="/contact">Book a free consultation</a>.</p>`,
+    coverImage: {
+      url: "/images/Blog-covers-2.png",
+      alt: "Planning notes and calculator",
+    },
+    authorName: SITE_DEFAULTS.shortName,
+    featured: true,
+    readingTimeMinutes: 6,
+    publishedAt: "2026-07-21T00:00:00.000Z",
+    tags: ["RRSP", "tax planning", "education"],
+  },
+  {
+    id: "blog-5",
+    title: "Segregated Funds and Probate: What to Understand First",
+    slug: "segregated-funds-and-probate",
+    excerpt:
+      "An educational overview of how segregated funds and beneficiary designations may relate to estate settlement — without treating this as legal advice.",
+    content: `<p>Segregated funds are insurance-based investment contracts. People often ask whether they can help assets pass to beneficiaries more smoothly than assets that must go through probate.</p><p>This article is educational only. It is not legal, tax or personalized investment advice. Probate rules vary by province and by how assets are owned. Confirm details with a qualified lawyer and tax professional.</p><h2>Why probate comes up</h2><p>Probate is the court process that validates a will and authorizes an estate representative to deal with certain assets. It can add time, cost and publicity depending on the situation.</p><h2>What people commonly discuss about segregated funds</h2><ul><li><strong>Beneficiary designations</strong> — where a valid beneficiary is named, death benefits may be paid directly to that beneficiary under the insurance contract, which can be different from assets that must be administered through the estate.</li><li><strong>“Bypass probate” is not automatic</strong> — outcomes depend on designations, ownership, provincial rules and the rest of the estate plan. Incorrect or missing designations can change the result.</li><li><strong>Insurance contract features</strong> — segregated funds may include guarantees and creditor-protection discussions in some contexts; these are product-specific and should never be assumed.</li><li><strong>Coordination matters</strong> — wills, beneficiaries, jointly held assets and registered accounts should be reviewed together so one decision does not conflict with another.</li></ul><h2>Questions to ask before deciding</h2><ul><li>Who is named as beneficiary, and is that designation current?</li><li>How does this fit with my will and overall estate plan?</li><li>Have I spoken with a lawyer about probate in my province?</li><li>Do I understand fees, guarantees and liquidity of the product I am considering?</li></ul><p>TopAdvice4U can help you prepare clearer questions and understand how segregated-fund conversations sit beside protection, investments and legacy coordination. We do not provide legal advice. For probate and estate documents, speak with a qualified estate-planning lawyer.</p><p><a href="/contact">Book a free consultation</a> to start the conversation.</p>`,
+    coverImage: {
+      url: "/images/Blog-covers-3.png",
+      alt: "Estate and planning documents",
+    },
+    authorName: SITE_DEFAULTS.shortName,
+    featured: true,
+    readingTimeMinutes: 5,
+    publishedAt: "2026-07-21T12:00:00.000Z",
+    tags: ["segregated funds", "estate planning", "education"],
+  },
+  {
+    id: "blog-6",
+    title: "Critical Illness Insurance: A Plain-Language Introduction",
+    slug: "critical-illness-insurance-introduction",
+    excerpt:
+      "What critical illness coverage is designed to help with — and the questions worth asking before you decide.",
+    content: `<p>Critical illness insurance is designed to pay a lump-sum benefit if you are diagnosed with a covered condition and meet the policy’s definition and survival requirements.</p><p>This article is educational only. It is not a quotation, medical advice or a guarantee of coverage. Definitions, exclusions and eligibility vary by insurer and contract.</p><h2>What it is meant to help with</h2><p>A qualifying critical illness benefit is often used to help with costs that can appear after a serious diagnosis — time away from work, travel for treatment, home adjustments, or simply financial breathing room while you focus on recovery.</p><h2>Ideas to understand before comparing policies</h2><ul><li><strong>Covered conditions</strong> — each policy lists which illnesses are covered and how they are defined.</li><li><strong>Survival period</strong> — many policies require you to survive a set number of days after diagnosis before a benefit is paid.</li><li><strong>Exclusions and waiting periods</strong> — pre-existing conditions and other limitations can affect eligibility.</li><li><strong>How it sits beside life and disability coverage</strong> — critical illness is not a substitute for every other protection conversation; the right mix depends on your situation.</li></ul><h2>Questions for a consultation</h2><ul><li>Which conditions matter most to discuss for my age and family history?</li><li>How would a lump sum help my household cash flow if I could not work for a period?</li><li>What documentation does underwriting typically require?</li><li>How does this fit with life insurance and emergency savings I already have?</li></ul><p>At TopAdvice4U, we explain options in plain language and help you prepare next steps. Final coverage depends on underwriting and the insurer — nothing here is an approval or guarantee.</p><p><a href="/contact">Book a free consultation</a>.</p>`,
+    coverImage: {
+      url: "/images/Blog-covers-1.png",
+      alt: "Health and protection planning",
+    },
+    authorName: SITE_DEFAULTS.shortName,
+    featured: true,
+    readingTimeMinutes: 5,
+    publishedAt: "2026-07-21T15:00:00.000Z",
+    tags: ["critical illness", "protection", "education"],
+  },
+  {
+    id: "blog-7",
+    title: "Estate Planning for Retirement: Connecting Today’s Income to Tomorrow’s Legacy",
+    slug: "estate-planning-for-retirement",
+    excerpt:
+      "How retirement income, beneficiaries and legacy conversations fit together — an educational overview to help you ask better questions.",
+    content: `<p>Retirement planning and estate planning are often treated as separate projects. In practice, the decisions you make about income, registered accounts and beneficiaries can shape what is left for the people you care about.</p><p>This article is educational only. It is not legal, tax or personalized financial advice. Confirm details with qualified legal and tax professionals before acting.</p><h2>Why the two conversations belong together</h2><p>As you move from saving to drawing income, account types, withdrawal order and beneficiary designations can affect both your lifestyle and your estate. A plan that only looks at retirement income — or only at a will — can leave gaps.</p><h2>Topics people commonly review</h2><ul><li><strong>Registered accounts and beneficiaries</strong> — RRSP, RRIF, TFSA and similar accounts often use beneficiary or successor designations that may interact with your will.</li><li><strong>Income timing</strong> — when and how you draw funds can change tax in your lifetime and what remains later.</li><li><strong>Insurance in the picture</strong> — life insurance and related coverage may support dependents, debts or legacy goals alongside investment accounts.</li><li><strong>Business or property interests</strong> — ownership and succession questions should be coordinated with retirement timing.</li><li><strong>Who does what</strong> — lawyers handle wills and legal documents; accountants handle tax; advisory conversations help organize the financial pieces first.</li></ul><h2>Questions to bring to a consultation</h2><ul><li>Who depends on my income if something happens during retirement?</li><li>Are my beneficiary designations current and consistent with my will?</li><li>Have I spoken with a lawyer about probate and estate documents in my province?</li><li>Does my withdrawal plan create avoidable tax pressure later?</li></ul><p>TopAdvice4U helps you prepare clearer questions and coordinate financial conversations with partnered professionals when legal or tax advice is required. We do not provide legal or accounting advice.</p><p><a href="/contact">Book a free consultation</a>.</p>`,
+    coverImage: {
+      url: "/images/Blog-covers-3.png",
+      alt: "Retirement and legacy planning",
+    },
+    authorName: SITE_DEFAULTS.shortName,
+    featured: true,
+    readingTimeMinutes: 5,
+    publishedAt: "2026-07-21T18:00:00.000Z",
+    tags: ["estate planning", "retirement", "education"],
+  },
+  {
+    id: "blog-8",
+    title: "RESPs Explained: Building Education Savings With Clearer Questions",
+    slug: "resp-education-savings-explained",
+    excerpt:
+      "A plain-language introduction to Registered Education Savings Plans — contributions, grants and planning points for Canadian families.",
+    content: `<p>A Registered Education Savings Plan (RESP) is a registered account used to save for a beneficiary’s post-secondary education. Families often use RESPs because contributions can grow tax-deferred and may attract government grants when rules are met.</p><p>This article is educational only. Grant amounts, limits and eligibility can change. Confirm current rules with Employment and Social Development Canada resources and a qualified advisor or tax professional.</p><h2>Core ideas to understand</h2><ul><li><strong>Subscriber and beneficiary</strong> — the subscriber opens and contributes to the plan; the beneficiary is the student the savings are intended to support.</li><li><strong>Contributions vs. growth and grants</strong> — contribution rules differ from how educational assistance payments (EAPs) are taxed when used for qualifying education.</li><li><strong>Canada Education Savings Grant (CESG)</strong> — where eligible, government grants can add to the plan based on contribution patterns and limits.</li><li><strong>Family vs. individual plans</strong> — structure can matter when more than one child is involved.</li><li><strong>Planning for the unexpected</strong> — successor subscriber / estate instructions can matter if the original subscriber dies; legal advice is required for wills and succession wording.</li></ul><h2>Practical questions before you contribute</h2><ul><li>What education timeline am I planning for?</li><li>Am I coordinating RESP savings with TFSA or other goals?</li><li>Do I understand contribution room and grant limits for my situation?</li><li>Have I thought about who would continue the plan if I could not?</li></ul><p>TopAdvice4U offers RESP and education-planning conversations in plain language as part of a broader advisory relationship. Nothing here is a quotation, grant guarantee or personalized recommendation.</p><p>Explore our <a href="/services/resp-education-planning">RESP and Education Planning</a> page or <a href="/contact">book a free consultation</a>.</p>`,
+    coverImage: {
+      url: "/images/Blog-1.png",
+      alt: "Education planning and savings",
+    },
+    authorName: SITE_DEFAULTS.shortName,
+    featured: true,
+    readingTimeMinutes: 5,
+    publishedAt: "2026-07-21T19:00:00.000Z",
+    tags: ["RESP", "education planning", "family"],
+  },
 ];
 
 export const FALLBACK_HEADER_NAV = {
@@ -655,6 +979,14 @@ export const FALLBACK_HEADER_NAV = {
           label: "Commercial Mortgages",
           href: "/services/commercial-mortgages",
         },
+        {
+          label: "Private Mortgages",
+          href: "/services/private-mortgages",
+        },
+        {
+          label: "Reverse Mortgage",
+          href: "/services/reverse-mortgage",
+        },
         { label: "Business Loans", href: "/services/business-loans" },
       ],
     },
@@ -666,8 +998,16 @@ export const FALLBACK_HEADER_NAV = {
           href: "/services/resp-education-planning",
         },
         {
-          label: "Estate-Planning Coordination",
+          label: "Estate Planning",
           href: "/services/estate-planning-coordination",
+        },
+        {
+          label: "Investments",
+          href: "/services/investments",
+        },
+        {
+          label: "Retirement Solutions",
+          href: "/services/retirement-solutions",
         },
       ],
     },

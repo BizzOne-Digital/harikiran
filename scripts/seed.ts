@@ -911,8 +911,16 @@ async function seed() {
                 href: "/services/resp-education-planning",
               },
               {
-                label: "Estate-Planning Coordination",
+                label: "Estate Planning",
                 href: "/services/estate-planning-coordination",
+              },
+              {
+                label: "Investments",
+                href: "/services/investments",
+              },
+              {
+                label: "Retirement Solutions",
+                href: "/services/retirement-solutions",
               },
             ],
           },

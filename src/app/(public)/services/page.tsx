@@ -5,9 +5,13 @@ import {
   Briefcase,
   Building2,
   GraduationCap,
+  Handshake,
   HeartPulse,
   Home,
   Landmark,
+  LineChart,
+  PiggyBank,
+  RefreshCw,
   ScrollText,
   Shield,
   type LucideIcon,
@@ -34,6 +38,10 @@ const iconMap: Record<string, LucideIcon> = {
   HeartPulse,
   GraduationCap,
   ScrollText,
+  LineChart,
+  PiggyBank,
+  Handshake,
+  RefreshCw,
 };
 
 interface ServicesPageProps {

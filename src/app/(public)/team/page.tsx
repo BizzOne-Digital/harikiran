@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import { PageHero } from "@/components/public/PageHero";
 import { ImageSplit } from "@/components/public/ImageSplit";
 import { RichHtml } from "@/components/shared/RichHtml";
@@ -49,60 +51,70 @@ export default async function TeamPage() {
 
       <section className="section-padding pt-0">
         <div className="container-wide">
-          {members.length > 0 ? (
-            <>
-              <Reveal>
-                <h2 className="font-display text-3xl">Meet the team</h2>
+          <Reveal className="text-center">
+            <h2 className="font-display text-3xl">Meet the team</h2>
+          </Reveal>
+          <div className="mt-10 flex flex-wrap justify-center gap-6">
+            {members.map((member, index) => (
+              <Reveal
+                key={member.id}
+                delay={index * 0.05}
+                className="w-full max-w-[22rem]"
+              >
+                <article className="brand-card h-full rounded-xl p-8 text-center">
+                  {member.photoUrl ? (
+                    <div className="relative mx-auto size-24 overflow-hidden rounded-full border border-white/15">
+                      <Image
+                        src={member.photoUrl}
+                        alt={member.name}
+                        fill
+                        unoptimized
+                        sizes="96px"
+                        className={
+                          member.name.toLowerCase().includes("harkiran")
+                            ? "object-cover object-[center_22%]"
+                            : "object-cover object-top"
+                        }
+                      />
+                    </div>
+                  ) : (
+                    <div className="mx-auto flex size-20 items-center justify-center rounded-full bg-navy/50 font-display text-3xl text-gradient">
+                      {member.name.charAt(0)}
+                    </div>
+                  )}
+                  <h2 className="mt-6 font-display text-2xl">{member.name}</h2>
+                  <p className="text-sky">{member.role}</p>
+                  {(member.fullBio || member.shortBio) && (
+                    <p className="mt-4 text-sm text-text-secondary">
+                      {member.fullBio ?? member.shortBio}
+                    </p>
+                  )}
+                  {member.name === SITE_DEFAULTS.contactName ? (
+                    <a
+                      href={SITE_DEFAULTS.digitalCardUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center justify-center gap-1.5 text-sm font-semibold text-sky hover:underline"
+                    >
+                      Digital business card
+                      <ExternalLink className="size-3.5" />
+                    </a>
+                  ) : null}
+                </article>
               </Reveal>
-              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {members.map((member, index) => (
-                  <Reveal key={member.id} delay={index * 0.05}>
-                    <article className="brand-card rounded-xl p-8">
-                      <div className="flex size-20 items-center justify-center rounded-full bg-navy/50 font-display text-3xl text-gradient">
-                        {member.name.charAt(0)}
-                      </div>
-                      <h2 className="mt-6 font-display text-2xl">
-                        {member.name}
-                      </h2>
-                      <p className="text-sky">{member.role}</p>
-                      {(member.fullBio || member.shortBio) && (
-                        <p className="mt-4 text-sm text-text-secondary">
-                          {member.fullBio ?? member.shortBio}
-                        </p>
-                      )}
-                    </article>
-                  </Reveal>
-                ))}
-              </div>
-            </>
-          ) : (
-            <Reveal>
-              <div className="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0a1628] to-[#07101f] p-10 sm:p-12">
-                <p className="text-sm font-semibold tracking-[0.22em] text-[#F4B44E] uppercase">
-                  Lead advisor
-                </p>
-                <h2 className="mt-3 font-display text-3xl sm:text-4xl">
-                  {SITE_DEFAULTS.contactName}
-                </h2>
-                <p className="mt-2 text-sky">
-                  TopAdvice4U Financial Services Inc.
-                </p>
-                <p className="mt-5 max-w-2xl text-text-secondary">
-                  Detailed team profiles will appear here as they are published
-                  in the admin panel. Until then, connect directly to start a
-                  consultation about protection, financing or planning.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Button asChild variant="gold">
-                    <Link href="/contact">{SITE_DEFAULTS.primaryCta}</Link>
-                  </Button>
-                  <Button asChild variant="outline">
-                    <a href={`mailto:${SITE_DEFAULTS.email}`}>Email us</a>
-                  </Button>
-                </div>
-              </div>
-            </Reveal>
-          )}
+            ))}
+          </div>
+
+          <Reveal className="mt-10 flex justify-center">
+            <div className="flex flex-wrap justify-center gap-3">
+              <Button asChild variant="gold">
+                <Link href="/contact">{SITE_DEFAULTS.primaryCta}</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/about">Professionals we work with</Link>
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
 

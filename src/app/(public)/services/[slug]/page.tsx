@@ -6,10 +6,14 @@ import {
   Briefcase,
   Building2,
   GraduationCap,
+  Handshake,
   HeartPulse,
   Home,
   Landmark,
   ScrollText,
+  LineChart,
+  PiggyBank,
+  RefreshCw,
   Shield,
   type LucideIcon,
 } from "lucide-react";
@@ -37,6 +41,10 @@ const iconMap: Record<string, LucideIcon> = {
   HeartPulse,
   GraduationCap,
   ScrollText,
+  LineChart,
+  PiggyBank,
+  Handshake,
+  RefreshCw,
 };
 
 interface ServicePageProps {

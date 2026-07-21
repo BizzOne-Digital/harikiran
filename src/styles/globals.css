@@ -386,8 +386,101 @@ html[data-intro="playing"] body {
   overflow: hidden !important;
 }
 
-html[data-intro="seen"] [data-opening-intro] {
-  display: none !important;
+/* Do not force display:none on the intro node — that races React
+   unmount and causes removeChild NotFoundError. React returns null instead. */
+
+/* Opening intro — CSS only (no Motion) to avoid removeChild races on dismiss */
+@keyframes intro-bg-rise {
+  from {
+    opacity: 0.25;
+    transform: translateY(68%) scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes intro-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes intro-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes intro-icon-in-left {
+  from {
+    opacity: 0;
+    transform: translate(-280px, -36px) rotate(-18deg) scale(1.3);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes intro-icon-in-right {
+  from {
+    opacity: 0;
+    transform: translate(280px, -36px) rotate(18deg) scale(1.3);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes intro-icon-in-left-sm {
+  from {
+    opacity: 0;
+    transform: translate(-80px, 40px) rotate(-18deg) scale(1.15);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes intro-icon-in-right-sm {
+  from {
+    opacity: 0;
+    transform: translate(80px, 40px) rotate(18deg) scale(1.15);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes intro-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+[data-opening-intro][data-phase="exit"] *,
+[data-opening-intro][data-phase="exit"] *::before,
+[data-opening-intro][data-phase="exit"] *::after {
+  animation-play-state: paused !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

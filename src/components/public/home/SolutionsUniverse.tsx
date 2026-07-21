@@ -6,9 +6,13 @@ import {
   Briefcase,
   Building2,
   GraduationCap,
+  Handshake,
   HeartPulse,
   Home,
   Landmark,
+  LineChart,
+  PiggyBank,
+  RefreshCw,
   ScrollText,
   Shield,
   ArrowUpRight,
@@ -32,6 +36,10 @@ const iconMap: Record<string, LucideIcon> = {
   HeartPulse,
   GraduationCap,
   ScrollText,
+  LineChart,
+  PiggyBank,
+  Handshake,
+  RefreshCw,
 };
 
 const groupAccent: Record<string, string> = {
@@ -68,7 +76,7 @@ export function SolutionsUniverse({ services }: SolutionsUniverseProps) {
             Solutions universe
           </p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl">
-            Eight pathways.{" "}
+            Twelve pathways.{" "}
             <span className="text-gradient-gold">One trusted relationship.</span>
           </h2>
           <p className="mt-5 text-lg text-text-secondary">

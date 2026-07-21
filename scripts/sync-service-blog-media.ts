@@ -1,5 +1,6 @@
 /**
  * Sync service cover images + blog posts with covers into Mongo.
+ * Also upserts any FALLBACK_SERVICES missing from the DB (e.g. Investments).
  * Usage: npx tsx scripts/sync-service-blog-media.ts
  */
 import dotenv from "dotenv";
@@ -10,7 +11,11 @@ dotenv.config({ path: resolve(process.cwd(), ".env") });
 
 import mongoose from "mongoose";
 import { SERVICE_IMAGES } from "../src/config/service-media";
-import { FALLBACK_BLOG_POSTS } from "../src/lib/data/fallbacks";
+import {
+  FALLBACK_BLOG_POSTS,
+  FALLBACK_HEADER_NAV,
+  FALLBACK_SERVICES,
+} from "../src/lib/data/fallbacks";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 if (!MONGODB_URI) {
@@ -33,19 +38,41 @@ async function main() {
   await mongoose.connect(MONGODB_URI!);
   const { Service } = await import("../src/models/Service");
   const { BlogPost } = await import("../src/models/Blog");
+  const { NavigationMenu } = await import("../src/models/NavigationMenu");
 
-  for (const [slug, img] of Object.entries(SERVICE_IMAGES)) {
-    const update: Record<string, unknown> = {
-      image: { url: img.url, alt: img.alt },
-    };
-    if (RICH_CONTENT[slug]) update.content = RICH_CONTENT[slug];
-
-    const result = await Service.findOneAndUpdate(
-      { slug },
-      { $set: update },
-      { upsert: false },
+  for (const service of FALLBACK_SERVICES) {
+    const img = SERVICE_IMAGES[service.slug];
+    await Service.findOneAndUpdate(
+      { slug: service.slug },
+      {
+        $set: {
+          name: service.name,
+          shortDescription: service.shortDescription,
+          summary: service.summary,
+          content: RICH_CONTENT[service.slug] || service.content,
+          icon: service.icon,
+          group: service.group,
+          audienceFilters: service.audienceFilters,
+          targetAudience: service.targetAudience,
+          challenges: service.challenges,
+          benefits: service.benefits,
+          processSteps: service.processSteps,
+          featured: service.featured,
+          sortOrder: service.sortOrder,
+          ctaLabel: service.ctaLabel,
+          ctaHref: service.ctaHref,
+          seo: service.seo,
+          status: "published",
+          visibility: true,
+          ...(img ? { image: { url: img.url, alt: img.alt } } : {}),
+        },
+        $setOnInsert: {
+          slug: service.slug,
+        },
+      },
+      { upsert: true },
     );
-    console.log(result ? `Updated service ${slug}` : `Missing service ${slug}`);
+    console.log(`Upserted service ${service.slug}`);
   }
 
   for (const post of FALLBACK_BLOG_POSTS) {
@@ -73,6 +100,17 @@ async function main() {
     );
     console.log(`Upserted blog ${post.slug}`);
   }
+
+  await NavigationMenu.findOneAndUpdate(
+    { key: "header" },
+    {
+      $set: {
+        megaMenuGroups: FALLBACK_HEADER_NAV.megaMenuGroups,
+      },
+    },
+    { upsert: false },
+  );
+  console.log("Updated header mega menu (if header nav exists)");
 
   console.log("Service + blog media sync complete.");
   await mongoose.disconnect();

@@ -5,6 +5,7 @@ import {
   Calendar,
   ChevronRight,
   Clock,
+  CreditCard,
   GraduationCap,
   Home,
   Mail,
@@ -117,6 +118,18 @@ const solutions: {
     href: "/services/estate-planning-coordination",
     icon: Scale,
     color: "#2DD4BF",
+  },
+  {
+    label: "Investments",
+    href: "/services/investments",
+    icon: Briefcase,
+    color: "#F472B6",
+  },
+  {
+    label: "Retirement",
+    href: "/services/retirement-solutions",
+    icon: GraduationCap,
+    color: "#FACC15",
   },
 ];
 
@@ -252,7 +265,7 @@ export function Footer({ summary, social }: FooterProps) {
                   className="flex items-start gap-3 text-[13.5px] text-white/75 transition hover:text-white"
                 >
                   <Phone className="mt-0.5 size-[18px] shrink-0 text-[#60A5FA]" />
-                  <span>604-837-3797</span>
+                  <span>{SITE_DEFAULTS.phone}</span>
                 </a>
               </li>
               <li>
@@ -264,9 +277,34 @@ export function Footer({ summary, social }: FooterProps) {
                   <span className="break-words">{SITE_DEFAULTS.email}</span>
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-[13.5px] leading-relaxed text-white/75">
-                <MapPin className="mt-0.5 size-[18px] shrink-0 text-[#60A5FA]" />
-                <span>Serving families and businesses across Canada</span>
+              {SITE_DEFAULTS.locations.map((loc) => (
+                <li
+                  key={loc.label}
+                  className="flex items-start gap-3 text-[13.5px] leading-relaxed text-white/75"
+                >
+                  <MapPin className="mt-0.5 size-[18px] shrink-0 text-[#60A5FA]" />
+                  <span>
+                    <span className="font-medium text-white/90">{loc.label}</span>
+                    <br />
+                    {loc.lines.map((line) => (
+                      <span key={line}>
+                        {line}
+                        <br />
+                      </span>
+                    ))}
+                  </span>
+                </li>
+              ))}
+              <li>
+                <a
+                  href={SITE_DEFAULTS.digitalCardUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-[13.5px] text-white/75 transition hover:text-white"
+                >
+                  <CreditCard className="mt-0.5 size-[18px] shrink-0 text-[#60A5FA]" />
+                  <span>Digital business card</span>
+                </a>
               </li>
               <li className="flex items-start gap-3 text-[13.5px] leading-relaxed text-white/75">
                 <Clock className="mt-0.5 size-[18px] shrink-0 text-[#60A5FA]" />
