@@ -20,11 +20,13 @@ export const SITE_DEFAULTS = {
     "Canadian financial advisory for life insurance, mortgages, business financing, employee benefits, education planning and legacy coordination.",
   locations: [
     {
-      label: "Insurance",
+      label: "Insurance — Richmond",
+      brokerage: "Way Financial",
       lines: ["Unit 400 - 6388 Number 3 Rd", "Richmond, BC V6Y 0L4"],
     },
     {
-      label: "Mortgages",
+      label: "Mortgages — Surrey",
+      brokerage: "Westmount Lending",
       lines: ["15055 54a Ave #103", "Surrey, BC V3S 5X7"],
     },
   ],

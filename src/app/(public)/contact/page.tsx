@@ -122,6 +122,9 @@ export default async function ContactPage() {
                     <p className="mt-3 text-xs tracking-wide text-text-secondary uppercase">
                       {loc.label}
                     </p>
+                    <p className="mt-1 text-sm font-semibold text-sky">
+                      {loc.brokerage}
+                    </p>
                     <p className="mt-1 text-sm leading-relaxed text-white">
                       {loc.lines.map((line) => (
                         <span key={line} className="block">
