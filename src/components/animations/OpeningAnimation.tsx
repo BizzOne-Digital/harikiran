@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { SITE_DEFAULTS } from "@/config/site";
 import { cn } from "@/lib/utilities/cn";
 
@@ -147,13 +146,21 @@ function IntroIcon({
 }
 
 /**
- * Cinematic first-visit intro — CSS animations only.
- * Motion/Framer caused removeChild NotFoundErrors on dismiss with React 19.
+ * Cinematic first-visit intro — pure CSS animations, no portal.
+ *
+ * We deliberately avoid createPortal because React 19's concurrent reconciler
+ * fires removeChild on portal children during teardown, producing
+ * "The node to be removed is not a child of this node" errors.
+ *
+ * Instead we render a normal in-tree position:fixed div (covers the viewport
+ * identically) and swap it to display:none when done — React only updates an
+ * attribute, never removes an out-of-tree node.
  */
 export function OpeningAnimation() {
   const [phase, setPhase] = useState<"idle" | "play" | "exit" | "done">("idle");
   const [pct, setPct] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     setMounted(true);
@@ -230,10 +237,18 @@ export function OpeningAnimation() {
     }
   }, [phase]);
 
-  if (!mounted || phase === "idle" || phase === "done") return null;
+  // Before hydration: nothing (prevents SSR/client mismatch).
+  if (!mounted) return null;
 
-  const shell = (
+  // Once done: invisible inert placeholder — keeps React from ever needing
+  // to removeChild an out-of-tree node.
+  if (phase === "idle" || phase === "done") {
+    return <div ref={overlayRef} aria-hidden="true" style={{ display: "none" }} />;
+  }
+
+  return (
     <div
+      ref={overlayRef}
       data-opening-intro
       data-phase={phase}
       className={cn(
@@ -278,6 +293,7 @@ export function OpeningAnimation() {
       <div className="relative z-10 flex h-full min-h-0 w-full flex-col px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6">
         <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-2 sm:gap-0">
           <div className="flex h-[min(78vh,620px)] w-full max-w-6xl items-center justify-center gap-2 sm:gap-5 lg:gap-8">
+            {/* Left icons */}
             <div className="hidden h-full max-h-full w-[18%] max-w-[9.5rem] flex-col items-center justify-evenly py-1 sm:flex lg:max-w-[10.5rem]">
               {LEFT_ICONS.map((icon, i) => (
                 <IntroIcon
@@ -290,6 +306,7 @@ export function OpeningAnimation() {
               ))}
             </div>
 
+            {/* Centre column */}
             <div className="relative flex min-h-0 min-w-0 flex-1 flex-col items-center justify-center gap-3 sm:gap-4">
               <div className="relative flex size-[min(72vw,300px)] items-center justify-center sm:size-[min(48vh,380px)] lg:size-[min(52vh,440px)]">
                 <div
@@ -307,15 +324,14 @@ export function OpeningAnimation() {
                     animation: `intro-fade-up 1.1s cubic-bezier(0.22, 1, 0.36, 1) ${TIMING.center + 0.25}s both`,
                   }}
                 >
-                  <div className="relative mb-1.5 h-[5.25rem] w-[9.5rem] overflow-hidden sm:mb-2 sm:h-[7.75rem] sm:w-[14rem] lg:h-[9rem] lg:w-[16.5rem]">
+                  <div className="relative mb-2 size-[8rem] shrink-0 sm:mb-3 sm:size-[12rem] lg:size-[15rem]">
                     <Image
-                      src="/logo/logo.png?v=2"
+                      src="/logo/logo-transparent.png"
                       alt={SITE_DEFAULTS.businessName}
-                      width={320}
-                      height={240}
+                      fill
                       priority
                       unoptimized
-                      className="absolute left-1/2 top-0 h-[145%] w-[145%] max-w-none -translate-x-1/2 object-contain object-top"
+                      className="object-contain"
                     />
                   </div>
                   <p className="font-display text-[1.25rem] font-semibold tracking-wide text-white sm:text-[1.75rem] lg:text-[2rem]">
@@ -335,6 +351,7 @@ export function OpeningAnimation() {
                 </div>
               </div>
 
+              {/* Advisor photos */}
               <div
                 className="z-20 flex items-start justify-center gap-4 sm:gap-6"
                 style={{
@@ -365,6 +382,7 @@ export function OpeningAnimation() {
               </div>
             </div>
 
+            {/* Right icons */}
             <div className="hidden h-full max-h-full w-[18%] max-w-[9.5rem] flex-col items-center justify-evenly py-1 sm:flex lg:max-w-[10.5rem]">
               {RIGHT_ICONS.map((icon, i) => (
                 <IntroIcon
@@ -378,6 +396,7 @@ export function OpeningAnimation() {
             </div>
           </div>
 
+          {/* Mobile icon grid */}
           <div className="mt-1 grid w-full max-w-sm grid-cols-3 justify-items-center gap-x-1 gap-y-0.5 px-1 sm:hidden">
             {[...LEFT_ICONS, ...RIGHT_ICONS].map((icon, i) => (
               <IntroIcon
@@ -392,6 +411,7 @@ export function OpeningAnimation() {
           </div>
         </div>
 
+        {/* Progress bar */}
         <div
           className="relative z-20 mx-auto w-full max-w-[28rem] shrink-0 px-2 pt-2 pb-1 sm:pt-3 sm:pb-2"
           style={{
@@ -419,6 +439,4 @@ export function OpeningAnimation() {
       </div>
     </div>
   );
-
-  return createPortal(shell, document.body);
 }

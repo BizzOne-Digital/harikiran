@@ -12,6 +12,8 @@ const serverSchema = z.object({
   ADMIN_NAME: z.string().optional(),
   EMAIL_FROM: z.string().optional(),
   EMAIL_PROVIDER_API_KEY: z.string().optional(),
+  GMAIL_USER: z.string().email().optional(),
+  GMAIL_APP_PASSWORD: z.string().optional(),
   CLOUDINARY_CLOUD_NAME: z.string().optional(),
   CLOUDINARY_API_KEY: z.string().optional(),
   CLOUDINARY_API_SECRET: z.string().optional(),
@@ -38,6 +40,8 @@ export function getServerEnv(options?: { soft?: boolean }): ServerEnv {
     ADMIN_NAME: process.env.ADMIN_NAME,
     EMAIL_FROM: process.env.EMAIL_FROM,
     EMAIL_PROVIDER_API_KEY: process.env.EMAIL_PROVIDER_API_KEY,
+    GMAIL_USER: process.env.GMAIL_USER,
+    GMAIL_APP_PASSWORD: process.env.GMAIL_APP_PASSWORD,
     CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
     CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
     CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
@@ -76,8 +80,10 @@ export function getSiteUrl() {
 }
 
 export function hasEmailConfigured() {
+  // Gmail SMTP (preferred) or legacy Resend API key
   return Boolean(
-    process.env.EMAIL_PROVIDER_API_KEY && process.env.EMAIL_FROM,
+    (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) ||
+      (process.env.EMAIL_PROVIDER_API_KEY && process.env.EMAIL_FROM),
   );
 }
 

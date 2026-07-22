@@ -727,44 +727,48 @@ export const FALLBACK_SERVICES: PublicService[] = [
     name: "POS Systems",
     slug: "pos-systems",
     shortDescription:
-      "Point-of-sale, AI ordering and website solutions for restaurants and retail businesses.",
+      "Point-of-sale, payment and technology solutions for retail and hospitality businesses.",
     summary:
-      "A dedicated business-technology pathway covering StarPOS retail & hospitality systems, Aiorders.io ordering tools, and custom website solutions — alongside your broader financial conversations.",
-    content: `<p>Many business owners need more than insurance and financing — they also need reliable technology to take payments, accept orders and present their brand online.</p><p>TopAdvice4U now offers a dedicated <strong>POS Systems</strong> pathway focused on three practical offerings:</p><h2>StarPOS</h2><p><a href="https://starpos.ca/" target="_blank" rel="noopener noreferrer">StarPOS</a> provides retail and hospitality point-of-sale solutions — tailored technology for businesses that need dependable in-store and hospitality systems.</p><h2>Aiorders.io</h2><p><a href="https://aiorders.io/" target="_blank" rel="noopener noreferrer">Aiorders.io</a> supports restaurants with AI-powered ordering and related growth tools — helping operators take and manage orders with clearer digital workflows.</p><h2>Websites</h2><p>We also support business website conversations — so your online presence can align with how you sell, take orders and present your services.</p><p>This page is educational. Final systems, pricing, timelines and suitability depend on your business needs and the relevant technology providers. A consultation is a conversation about goals and next steps — not a guaranteed installation or rate quote.</p>`,
+      "A dedicated business-technology pathway covering hospitality POS, retail POS, payment processing, drive-thru systems, video surveillance, and installation & deployment services — alongside your broader financial conversations.",
+    content: `<p>Many business owners need more than insurance and financing — they also need reliable technology to take payments, manage operations and protect their premises.</p><p>TopAdvice4U now offers a dedicated <strong>POS Systems</strong> pathway with six practical service areas:</p><h2>Hospitality POS</h2><p>Streamline every aspect of your restaurant or hospitality operation with best-in-class point-of-sale solutions designed to work together out of the box — from table management to kitchen communication.</p><h2>Retail POS</h2><p>A complete retail point-of-sale solution that is flexible and scalable, built around how your business actually works — covering transactions, inventory and customer management.</p><h2>Payments</h2><p>Deliver seamless payment experiences whether your customers swipe, insert or tap. Secure, scalable payment technologies tailored to the needs of your business and the ways your customers prefer to pay.</p><h2>Drive-Thru</h2><p>Dedicated drive-thru systems engineered to deliver the best possible experience for your customers — keeping lines moving and orders accurate.</p><h2>Video Surveillance</h2><p>Eliminate false alarms and protect your premises with the latest video surveillance and recording technology built specifically for retail and hospitality environments.</p><h2>Installation &amp; Deployment Services</h2><p>End-to-end deployment solutions covering a variety of rollout needs, timelines and cost requirements — successfully supporting many of Canada's leading retail and hospitality operators.</p><p>This page is educational. Final systems, pricing, timelines and suitability depend on your business needs and the relevant technology providers. A consultation is a conversation about goals and next steps — not a guaranteed installation or rate quote.</p>`,
     icon: "MonitorSmartphone",
     group: "financing",
     audienceFilters: ["business"],
     targetAudience: [
       "Restaurant and hospitality owners",
       "Retail operators",
-      "Business owners modernizing payments and ordering",
+      "Business owners modernizing payments and operations",
+      "Drive-thru and quick-service restaurant operators",
     ],
     challenges: [
       "Choosing POS technology that fits day-to-day operations",
-      "Connecting online ordering to the front of house",
-      "Keeping websites aligned with how the business actually sells",
+      "Connecting payments, ordering and inventory in one system",
+      "Protecting premises with reliable surveillance",
+      "Managing complex rollouts across multiple locations",
     ],
     benefits: [
-      "Clear conversations about StarPOS pathways",
-      "Introduction to Aiorders.io ordering tools",
-      "Website solution discussions for business presence",
-      "One advisory relationship that can connect finance and operations tech",
+      "Hospitality and retail POS solutions tailored to your operation",
+      "Secure and scalable payment processing",
+      "Drive-thru systems that keep service fast and accurate",
+      "Video surveillance built for retail and hospitality environments",
+      "Full installation and deployment support from start to finish",
+      "One advisory relationship that connects technology with your broader financial picture",
     ],
     processSteps: [
       {
         title: "Share how you operate",
         description:
-          "Retail, hospitality, ordering volume and what is broken today.",
+          "Retail, hospitality, drive-thru or multi-location — we start with how your business actually runs today.",
       },
       {
-        title: "Review the three pathways",
+        title: "Review your technology needs",
         description:
-          "StarPOS, Aiorders.io and website options explained in plain language.",
+          "POS, payments, surveillance and deployment options explained in plain language.",
       },
       {
         title: "Outline next steps",
         description:
-          "We help you decide what to explore first — without pressure or fabricated promises.",
+          "We help you identify the right starting point — without pressure or fabricated promises.",
       },
     ],
     featured: true,
@@ -774,7 +778,7 @@ export const FALLBACK_SERVICES: PublicService[] = [
     seo: {
       title: "POS Systems | TopAdvice4U",
       description:
-        "POS, AI ordering and website solutions for restaurants and retail — StarPOS, Aiorders.io and business websites.",
+        "Hospitality POS, retail POS, payment processing, drive-thru systems, video surveillance and installation services for Canadian businesses.",
     },
   },
 ];
