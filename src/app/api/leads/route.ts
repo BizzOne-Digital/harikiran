@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import connectDB from "@/lib/db/mongoose";
 import { Lead } from "@/models/Lead";
 import { leadFormSchema } from "@/lib/validation/forms";
+import {
+  notifyAdminOfLead,
+  confirmVisitorEnquiry,
+} from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -45,6 +49,22 @@ export async function POST(request: Request) {
       priority: "normal",
       internalNotes: [],
     });
+
+    // Send emails in parallel — fire-and-forget so DB save already succeeded.
+    // Errors are logged but do not fail the API response.
+    Promise.all([
+      notifyAdminOfLead({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        serviceInterest: data.serviceInterest,
+        message: data.message,
+      }),
+      confirmVisitorEnquiry({
+        name: data.name,
+        email: data.email,
+      }),
+    ]).catch((err) => console.error("[leads] Email send error:", err));
 
     return NextResponse.json({ success: true });
   } catch (error) {
