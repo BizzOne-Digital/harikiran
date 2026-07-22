@@ -30,22 +30,29 @@ export interface SendEmailOptions {
 // Transport factory
 // ---------------------------------------------------------------------------
 
-function createGmailTransport() {
-  const user = process.env.GMAIL_USER;
-  const pass = process.env.GMAIL_APP_PASSWORD;
+function getGmailCredentials() {
+  const user = process.env.GMAIL_USER?.trim();
+  // Google App Passwords are often copied with spaces — strip them
+  const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, "");
   if (!user || !pass) return null;
+  return { user, pass };
+}
+
+function createGmailTransport() {
+  const creds = getGmailCredentials();
+  if (!creds) return null;
 
   return nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
     secure: true, // SSL
-    auth: { user, pass },
+    auth: { user: creds.user, pass: creds.pass },
     pool: true,
     maxConnections: 3,
     // Increase timeouts for cold starts on serverless
-    socketTimeout: 10_000,
-    greetingTimeout: 10_000,
-    connectionTimeout: 10_000,
+    socketTimeout: 15_000,
+    greetingTimeout: 15_000,
+    connectionTimeout: 15_000,
   });
 }
 
@@ -56,14 +63,15 @@ function createGmailTransport() {
 export async function sendEmail(
   options: SendEmailOptions,
 ): Promise<{ success: boolean; skipped?: boolean; error?: unknown }> {
-  const gmailUser = process.env.GMAIL_USER;
-  const gmailPass = process.env.GMAIL_APP_PASSWORD;
+  const gmailCreds = getGmailCredentials();
   const resendKey = process.env.EMAIL_PROVIDER_API_KEY;
 
   // ── Gmail SMTP path ──────────────────────────────────────────────────────
-  if (gmailUser && gmailPass) {
+  if (gmailCreds) {
     const transport = createGmailTransport()!;
-    const from = `TopAdvice4U Financial Services <${gmailUser}>`;
+    const from =
+      process.env.EMAIL_FROM?.trim() ||
+      `TopAdvice4U Financial Services <${gmailCreds.user}>`;
 
     try {
       await transport.sendMail({

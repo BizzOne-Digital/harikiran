@@ -10,7 +10,8 @@
     "test": "vitest run",
     "seed": "tsx scripts/seed.ts",
     "sync:pages": "tsx scripts/sync-page-media.ts",
-    "sync:media": "tsx scripts/sync-service-blog-media.ts"
+    "sync:media": "tsx scripts/sync-service-blog-media.ts",
+    "test:email": "tsx scripts/test-email.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

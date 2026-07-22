@@ -81,8 +81,12 @@ export function getSiteUrl() {
 
 export function hasEmailConfigured() {
   // Gmail SMTP (preferred) or legacy Resend API key
+  const gmailReady = Boolean(
+    process.env.GMAIL_USER?.trim() &&
+      process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, ""),
+  );
   return Boolean(
-    (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) ||
+    gmailReady ||
       (process.env.EMAIL_PROVIDER_API_KEY && process.env.EMAIL_FROM),
   );
 }
