@@ -77,6 +77,20 @@ export default async function ContactPage() {
                     href: `mailto:${SITE_DEFAULTS.email}`,
                   },
                   {
+                    icon: Phone,
+                    label: "Phone",
+                    value: "(604) 218-8869",
+                    subtitle: "Jennifer Chan",
+                    href: "tel:+16042188869",
+                  },
+                  {
+                    icon: Mail,
+                    label: "Email",
+                    value: "chan.jennifer15@gmail.com",
+                    subtitle: "Jennifer Chan",
+                    href: "mailto:chan.jennifer15@gmail.com",
+                  },
+                  {
                     icon: Clock,
                     label: "Response",
                     value: "We typically reply within 1–2 business days",
@@ -86,11 +100,11 @@ export default async function ContactPage() {
                     label: "Privacy",
                     value: "No SINs, bank logins or ID uploads via web forms",
                   },
-                ].map((item) => {
+                ].map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <div
-                      key={item.label}
+                      key={`${item.label}-${index}`}
                       className="rounded-2xl border border-white/10 bg-white/[0.03] p-5"
                     >
                       <Icon className="size-5 text-sky" />
@@ -98,12 +112,19 @@ export default async function ContactPage() {
                         {item.label}
                       </p>
                       {item.href ? (
-                        <a
-                          href={item.href}
-                          className="mt-1 block text-sm text-white hover:text-sky"
-                        >
-                          {item.value}
-                        </a>
+                        <>
+                          {item.subtitle && (
+                            <p className="mt-1 text-xs text-text-secondary">
+                              {item.subtitle}
+                            </p>
+                          )}
+                          <a
+                            href={item.href}
+                            className="mt-1 block text-sm text-white hover:text-sky"
+                          >
+                            {item.value}
+                          </a>
+                        </>
                       ) : (
                         <p className="mt-1 text-sm text-white">{item.value}</p>
                       )}
