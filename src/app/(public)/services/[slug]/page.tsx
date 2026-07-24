@@ -17,6 +17,11 @@ import {
   RefreshCw,
   Shield,
   ShieldCheck,
+  Globe,
+  Share2,
+  FileText,
+  Bot,
+  Video,
   type LucideIcon,
 } from "lucide-react";
 import { Reveal } from "@/components/animations/Reveal";
@@ -49,6 +54,11 @@ const iconMap: Record<string, LucideIcon> = {
   Handshake,
   RefreshCw,
   MonitorSmartphone,
+  Globe,
+  Share2,
+  FileText,
+  Bot,
+  Video,
 };
 
 interface ServicePageProps {

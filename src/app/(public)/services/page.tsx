@@ -16,6 +16,11 @@ import {
   ScrollText,
   Shield,
   ShieldCheck,
+  Globe,
+  Share2,
+  FileText,
+  Bot,
+  Video,
   type LucideIcon,
 } from "lucide-react";
 import { PageHero } from "@/components/public/PageHero";
@@ -46,6 +51,11 @@ const iconMap: Record<string, LucideIcon> = {
   Handshake,
   RefreshCw,
   MonitorSmartphone,
+  Globe,
+  Share2,
+  FileText,
+  Bot,
+  Video,
 };
 
 interface ServicesPageProps {

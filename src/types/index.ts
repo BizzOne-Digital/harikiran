@@ -31,7 +31,7 @@ export type PreferredContact = "email" | "phone" | "either";
 
 export type OfferingType = "service" | "plan" | "program" | "product";
 
-export type ServiceGroup = "protection" | "financing" | "future-legacy";
+export type ServiceGroup = "protection" | "financing" | "future-legacy" | "digital-marketing";
 
 export type ServiceAudienceFilter =
   | "family"
