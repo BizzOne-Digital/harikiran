@@ -15,6 +15,7 @@ import {
   RefreshCw,
   ScrollText,
   Shield,
+  ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
 import { PageHero } from "@/components/public/PageHero";
@@ -32,6 +33,7 @@ import { getPublishedPageBySlug, getPublishedServices } from "@/lib/data";
 
 const iconMap: Record<string, LucideIcon> = {
   Shield,
+  ShieldCheck,
   Building2,
   Home,
   Landmark,

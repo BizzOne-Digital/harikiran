@@ -16,6 +16,7 @@ import {
   PiggyBank,
   RefreshCw,
   Shield,
+  ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
 import { Reveal } from "@/components/animations/Reveal";
@@ -35,6 +36,7 @@ import {
 
 const iconMap: Record<string, LucideIcon> = {
   Shield,
+  ShieldCheck,
   Building2,
   Home,
   Landmark,

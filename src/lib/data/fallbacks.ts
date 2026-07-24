@@ -200,6 +200,120 @@ export const FALLBACK_SERVICES: PublicService[] = [
     },
   },
   {
+    id: "home-business-insurance",
+    name: "Home and Business Insurance",
+    slug: "home-business-insurance",
+    shortDescription:
+      "Property insurance for homes, rental properties and business premises.",
+    summary:
+      "Insurance pathways covering residential properties, rental buildings, commercial premises and business assets — protecting what you own from unexpected losses.",
+    content: `<p>Property insurance helps protect homes, rental properties and business premises from risks like fire, theft, water damage and other covered perils.</p><p>TopAdvice4U provides advisory conversations covering home insurance, tenant and landlord coverage, and commercial property insurance for business owners.</p><h2>Home Insurance</h2><p>Coverage for your primary residence — including the structure, contents and additional living expenses if your home becomes uninhabitable due to a covered loss.</p><h2>Rental Property Insurance</h2><p>Protection for landlords and property investors — covering buildings, loss of rental income and liability exposures related to tenants.</p><h2>Commercial Property Insurance</h2><p>Business premises coverage — protecting buildings, equipment, inventory and business interruption risks for retail, office and industrial properties.</p><p>This page is educational. Coverage, terms, exclusions and premiums depend on the property, insurer underwriting and individual circumstances. A consultation is a conversation about coverage needs — not a quotation or guarantee of policy terms.</p>`,
+    icon: "Home",
+    group: "protection",
+    audienceFilters: ["family", "property", "business"],
+    targetAudience: [
+      "Homeowners",
+      "Landlords and property investors",
+      "Business owners with commercial premises",
+      "Individuals protecting real estate assets",
+    ],
+    challenges: [
+      "Understanding coverage types and exclusions",
+      "Determining appropriate coverage limits",
+      "Balancing premiums with adequate protection",
+      "Coordinating property insurance with mortgages",
+    ],
+    benefits: [
+      "Home, rental and commercial property coverage options",
+      "Educational guidance on policy structures",
+      "Clear explanations of coverage gaps and exclusions",
+      "Coordination with mortgage and financing requirements",
+    ],
+    processSteps: [
+      {
+        title: "Identify what needs protecting",
+        description:
+          "Primary residence, rental properties, commercial premises or all of the above.",
+      },
+      {
+        title: "Review coverage needs",
+        description:
+          "Structure, contents, liability and income-loss considerations explained clearly.",
+      },
+      {
+        title: "Compare options",
+        description:
+          "We outline suitable coverage pathways and connect you with next steps.",
+      },
+    ],
+    featured: true,
+    sortOrder: 3,
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
+    seo: {
+      title: "Home and Business Insurance | TopAdvice4U",
+      description:
+        "Property insurance for homes, rental properties and commercial premises — protecting your real estate assets.",
+    },
+  },
+  {
+    id: "liability-insurance",
+    name: "Liability Insurance",
+    slug: "liability-insurance",
+    shortDescription:
+      "Protection against legal claims for individuals, landlords and business owners.",
+    summary:
+      "Liability insurance pathways covering personal liability, landlord exposures, professional liability and commercial general liability — defending against claims and lawsuits.",
+    content: `<p>Liability insurance protects you financially if you are sued or held legally responsible for injury, property damage or other covered claims against you.</p><p>TopAdvice4U provides advisory conversations on liability coverage for individuals, property owners and businesses — helping you understand exposure and protection options.</p><h2>Personal Liability</h2><p>Coverage for individuals and families — protecting against lawsuits from accidents on your property, damage you cause to others, or legal defense costs.</p><h2>Landlord Liability</h2><p>Protection for property investors — covering tenant injury claims, property damage liability and legal defense for rental-related lawsuits.</p><h2>Professional Liability (Errors & Omissions)</h2><p>Coverage for professionals and consultants — protecting against claims of negligence, mistakes or failure to deliver promised services.</p><h2>Commercial General Liability</h2><p>Business liability coverage — protecting against customer injury claims, property damage, advertising injury and legal defense costs for business operations.</p><p>This page is educational. Coverage, exclusions, limits and premiums depend on your circumstances, activities and insurer underwriting. A consultation is a conversation about liability exposure — not a quotation or guarantee of policy terms.</p>`,
+    icon: "ShieldCheck",
+    group: "protection",
+    audienceFilters: ["family", "property", "business"],
+    targetAudience: [
+      "Individuals and families",
+      "Landlords and property investors",
+      "Professionals and consultants",
+      "Business owners and operators",
+    ],
+    challenges: [
+      "Understanding liability exposure and coverage gaps",
+      "Determining adequate liability limits",
+      "Coordinating personal, landlord and business liability",
+      "Managing premiums while maintaining protection",
+    ],
+    benefits: [
+      "Personal, landlord, professional and commercial liability options",
+      "Clear explanations of what is and is not covered",
+      "Guidance on liability limits and umbrella coverage",
+      "Coordination with property and business insurance",
+    ],
+    processSteps: [
+      {
+        title: "Identify exposure areas",
+        description:
+          "Personal activities, rental properties, professional work or business operations.",
+      },
+      {
+        title: "Review liability risks",
+        description:
+          "We discuss what could go wrong and how liability insurance responds.",
+      },
+      {
+        title: "Explore coverage pathways",
+        description:
+          "We outline suitable liability options and connect you with next steps.",
+      },
+    ],
+    featured: true,
+    sortOrder: 4,
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
+    seo: {
+      title: "Liability Insurance | TopAdvice4U",
+      description:
+        "Personal, landlord, professional and commercial liability insurance — protecting against legal claims and lawsuits.",
+    },
+  },
+  {
     id: "residential-mortgages",
     name: "Residential Mortgages",
     slug: "residential-mortgages",
@@ -799,7 +913,7 @@ export const FALLBACK_TEAM_MEMBERS: PublicTeamMember[] = [
     name: "Jennifer Chan",
     role: "Financial Advisor",
     shortBio:
-      "Advisory conversations focused on investments, retirement and clear next steps for families and individuals.",
+      "Advisory conversations focused on life insurance products, investments for families and children, and clear next steps for retirement and estate planning for individuals and corporations.",
     photoUrl: "/team/jennifer-chan.png",
     featured: true,
     sortOrder: 2,
