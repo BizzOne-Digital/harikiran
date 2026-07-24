@@ -904,8 +904,8 @@ export const FALLBACK_SERVICES: PublicService[] = [
     shortDescription:
       "Professional website design and development services for businesses seeking an impactful online presence.",
     summary:
-      "Bizzone Digital offers custom web development solutions tailored to your business needs — from corporate websites to e-commerce platforms.",
-    content: `<p>Your website is often the first impression potential customers have of your business. Bizzone Digital creates professional, responsive and user-friendly websites that help you stand out online.</p><p>Whether you need a corporate website, e-commerce platform, landing page or custom web application — Bizzone Digital has the expertise to bring your vision to life.</p><h2>Our Web Development Services</h2><p><strong>Custom Website Design</strong> — Tailored designs that reflect your brand identity and engage your target audience.</p><p><strong>Responsive Development</strong> — Websites that work seamlessly across all devices — desktop, tablet and mobile.</p><p><strong>E-Commerce Solutions</strong> — Online stores with secure payment processing, inventory management and customer-friendly shopping experiences.</p><p><strong>Content Management Systems</strong> — Easy-to-update websites built on platforms like WordPress, Shopify or custom CMS solutions.</p><p><strong>Website Maintenance & Support</strong> — Ongoing technical support, updates and optimization to keep your site running smoothly.</p><p>For more information about our web development services, visit <a href="https://www.bizzonedigital.com/" target="_blank" rel="noopener noreferrer">www.bizzonedigital.com</a></p>`,
+      "Custom web development solutions tailored to your business needs — from corporate websites to e-commerce platforms.",
+    content: `<p>Your website is often the first impression potential customers have of your business. We create professional, responsive and user-friendly websites that help you stand out online.</p><p>Whether you need a corporate website, e-commerce platform, landing page or custom web application — we have the expertise to bring your vision to life.</p><h2>Our Web Development Services</h2><p><strong>Custom Website Design</strong> — Tailored designs that reflect your brand identity and engage your target audience.</p><p><strong>Responsive Development</strong> — Websites that work seamlessly across all devices — desktop, tablet and mobile.</p><p><strong>E-Commerce Solutions</strong> — Online stores with secure payment processing, inventory management and customer-friendly shopping experiences.</p><p><strong>Content Management Systems</strong> — Easy-to-update websites built on platforms like WordPress, Shopify or custom CMS solutions.</p><p><strong>Website Maintenance & Support</strong> — Ongoing technical support, updates and optimization to keep your site running smoothly.</p><p>Ready to build your online presence? Book a free consultation to discuss your web development needs.</p>`,
     icon: "Globe",
     image: { url: "/images/web-development.png", alt: "Web Development Services" },
     group: "digital-marketing",
@@ -948,10 +948,10 @@ export const FALLBACK_SERVICES: PublicService[] = [
     ],
     featured: true,
     sortOrder: 14,
-    ctaLabel: "Visit Bizzone Digital",
-    ctaHref: "https://www.bizzonedigital.com/",
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
     seo: {
-      title: "Web Development | Bizzone Digital",
+      title: "Web Development | TopAdvice4U",
       description:
         "Professional web development services including custom websites, e-commerce platforms and responsive design.",
     },
@@ -963,8 +963,8 @@ export const FALLBACK_SERVICES: PublicService[] = [
     shortDescription:
       "Strategic social media management to build your brand presence and engage your audience across platforms.",
     summary:
-      "Bizzone Digital provides comprehensive social media management services — from content creation to community engagement and performance analytics.",
-    content: `<p>Social media is essential for building brand awareness, engaging customers and driving business growth. Bizzone Digital manages your social media presence so you can focus on running your business.</p><p>Our social media management services cover strategy development, content creation, posting schedules, community management and performance tracking across all major platforms.</p><h2>Our Social Media Services</h2><p><strong>Social Media Strategy</strong> — Custom strategies aligned with your business goals and target audience.</p><p><strong>Content Creation</strong> — Eye-catching posts, graphics and videos designed to engage your followers.</p><p><strong>Community Management</strong> — Active engagement with your audience through comments, messages and interactions.</p><p><strong>Paid Social Advertising</strong> — Targeted ad campaigns to reach new audiences and drive conversions.</p><p><strong>Analytics & Reporting</strong> — Regular performance reports showing growth, engagement and ROI.</p><p>We manage presence across Facebook, Instagram, LinkedIn, Twitter/X, TikTok and more. Learn more at <a href="https://www.bizzonedigital.com/" target="_blank" rel="noopener noreferrer">www.bizzonedigital.com</a></p>`,
+      "Comprehensive social media management services — from content creation to community engagement and performance analytics.",
+    content: `<p>Social media is essential for building brand awareness, engaging customers and driving business growth. We manage your social media presence so you can focus on running your business.</p><p>Our social media management services cover strategy development, content creation, posting schedules, community management and performance tracking across all major platforms.</p><h2>Our Social Media Services</h2><p><strong>Social Media Strategy</strong> — Custom strategies aligned with your business goals and target audience.</p><p><strong>Content Creation</strong> — Eye-catching posts, graphics and videos designed to engage your followers.</p><p><strong>Community Management</strong> — Active engagement with your audience through comments, messages and interactions.</p><p><strong>Paid Social Advertising</strong> — Targeted ad campaigns to reach new audiences and drive conversions.</p><p><strong>Analytics & Reporting</strong> — Regular performance reports showing growth, engagement and ROI.</p><p>We manage presence across Facebook, Instagram, LinkedIn, Twitter/X, TikTok and more. Ready to amplify your social media presence? Book a free consultation to get started.</p>`,
     icon: "Share2",
     image: { url: "/images/social-media-management.png", alt: "Social Media Management Services" },
     group: "digital-marketing",
@@ -1007,10 +1007,10 @@ export const FALLBACK_SERVICES: PublicService[] = [
     ],
     featured: true,
     sortOrder: 15,
-    ctaLabel: "Visit Bizzone Digital",
-    ctaHref: "https://www.bizzonedigital.com/",
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
     seo: {
-      title: "Social Media Management | Bizzone Digital",
+      title: "Social Media Management | TopAdvice4U",
       description:
         "Professional social media management services including strategy, content creation and community engagement.",
     },
@@ -1022,8 +1022,8 @@ export const FALLBACK_SERVICES: PublicService[] = [
     shortDescription:
       "Strategic content planning and creation that drives engagement, builds authority and converts audiences.",
     summary:
-      "Bizzone Digital develops comprehensive content strategies that align with your business goals — from blog posts to email campaigns and beyond.",
-    content: `<p>Great content is the foundation of digital marketing success. Bizzone Digital creates strategic content that educates, engages and converts your target audience.</p><p>Our content strategy services encompass planning, creation, optimization and distribution across multiple channels — ensuring your message reaches the right people at the right time.</p><h2>Our Content Strategy Services</h2><p><strong>Content Planning & Strategy</strong> — Comprehensive content roadmaps aligned with your marketing goals and customer journey.</p><p><strong>Blog Writing & SEO Content</strong> — Search-optimized articles that drive organic traffic and establish thought leadership.</p><p><strong>Copywriting</strong> — Compelling website copy, landing pages and marketing materials that convert.</p><p><strong>Email Marketing Campaigns</strong> — Engaging email sequences that nurture leads and drive sales.</p><p><strong>Content Calendars</strong> — Organized publishing schedules ensuring consistent content delivery.</p><p><strong>Performance Analysis</strong> — Data-driven insights showing which content drives results.</p><p>Discover how strategic content can transform your marketing at <a href="https://www.bizzonedigital.com/" target="_blank" rel="noopener noreferrer">www.bizzonedigital.com</a></p>`,
+      "Comprehensive content strategies that align with your business goals — from blog posts to email campaigns and beyond.",
+    content: `<p>Great content is the foundation of digital marketing success. We create strategic content that educates, engages and converts your target audience.</p><p>Our content strategy services encompass planning, creation, optimization and distribution across multiple channels — ensuring your message reaches the right people at the right time.</p><h2>Our Content Strategy Services</h2><p><strong>Content Planning & Strategy</strong> — Comprehensive content roadmaps aligned with your marketing goals and customer journey.</p><p><strong>Blog Writing & SEO Content</strong> — Search-optimized articles that drive organic traffic and establish thought leadership.</p><p><strong>Copywriting</strong> — Compelling website copy, landing pages and marketing materials that convert.</p><p><strong>Email Marketing Campaigns</strong> — Engaging email sequences that nurture leads and drive sales.</p><p><strong>Content Calendars</strong> — Organized publishing schedules ensuring consistent content delivery.</p><p><strong>Performance Analysis</strong> — Data-driven insights showing which content drives results.</p><p>Ready to transform your content marketing? Book a free consultation to discuss your content strategy needs.</p>`,
     icon: "FileText",
     image: { url: "/images/content-strategy.png", alt: "Content Strategy Services" },
     group: "digital-marketing",
@@ -1066,10 +1066,10 @@ export const FALLBACK_SERVICES: PublicService[] = [
     ],
     featured: true,
     sortOrder: 16,
-    ctaLabel: "Visit Bizzone Digital",
-    ctaHref: "https://www.bizzonedigital.com/",
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
     seo: {
-      title: "Content Strategy | Bizzone Digital",
+      title: "Content Strategy | TopAdvice4U",
       description:
         "Strategic content planning, creation and optimization services that drive engagement and conversions.",
     },
@@ -1081,8 +1081,8 @@ export const FALLBACK_SERVICES: PublicService[] = [
     shortDescription:
       "Harness the power of artificial intelligence to automate workflows, enhance productivity and gain competitive advantage.",
     summary:
-      "Bizzone Digital implements AI-powered automation solutions that streamline operations, reduce costs and unlock new business opportunities.",
-    content: `<p>Artificial intelligence is transforming how businesses operate. Bizzone Digital helps you leverage AI and automation technologies to work smarter, faster and more efficiently.</p><p>From chatbots and automated workflows to predictive analytics and intelligent content generation — we implement AI solutions that deliver real business value.</p><h2>Our AI & Automation Services</h2><p><strong>AI Chatbots & Virtual Assistants</strong> — Intelligent chatbots that handle customer inquiries 24/7, improving service while reducing costs.</p><p><strong>Workflow Automation</strong> — Automated processes that eliminate repetitive tasks and improve efficiency.</p><p><strong>AI Content Generation</strong> — Intelligent tools that assist with content creation, optimization and personalization.</p><p><strong>Predictive Analytics</strong> — AI-powered insights that help forecast trends and make data-driven decisions.</p><p><strong>Marketing Automation</strong> — Smart automation for email campaigns, lead nurturing and customer segmentation.</p><p><strong>Custom AI Solutions</strong> — Tailored AI implementations designed for your specific business needs.</p><p>Explore how AI can transform your business at <a href="https://www.bizzonedigital.com/" target="_blank" rel="noopener noreferrer">www.bizzonedigital.com</a></p>`,
+      "AI-powered automation solutions that streamline operations, reduce costs and unlock new business opportunities.",
+    content: `<p>Artificial intelligence is transforming how businesses operate. We help you leverage AI and automation technologies to work smarter, faster and more efficiently.</p><p>From chatbots and automated workflows to predictive analytics and intelligent content generation — we implement AI solutions that deliver real business value.</p><h2>Our AI & Automation Services</h2><p><strong>AI Chatbots & Virtual Assistants</strong> — Intelligent chatbots that handle customer inquiries 24/7, improving service while reducing costs.</p><p><strong>Workflow Automation</strong> — Automated processes that eliminate repetitive tasks and improve efficiency.</p><p><strong>AI Content Generation</strong> — Intelligent tools that assist with content creation, optimization and personalization.</p><p><strong>Predictive Analytics</strong> — AI-powered insights that help forecast trends and make data-driven decisions.</p><p><strong>Marketing Automation</strong> — Smart automation for email campaigns, lead nurturing and customer segmentation.</p><p><strong>Custom AI Solutions</strong> — Tailored AI implementations designed for your specific business needs.</p><p>Ready to leverage AI for your business? Book a free consultation to explore AI automation opportunities.</p>`,
     icon: "Bot",
     image: { url: "/images/ai-automation.png", alt: "AI & AI Automations Services" },
     group: "digital-marketing",
@@ -1125,10 +1125,10 @@ export const FALLBACK_SERVICES: PublicService[] = [
     ],
     featured: true,
     sortOrder: 17,
-    ctaLabel: "Visit Bizzone Digital",
-    ctaHref: "https://www.bizzonedigital.com/",
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
     seo: {
-      title: "AI & AI Automations | Bizzone Digital",
+      title: "AI & AI Automations | TopAdvice4U",
       description:
         "AI and automation solutions including chatbots, workflow automation and intelligent business tools.",
     },
@@ -1140,8 +1140,8 @@ export const FALLBACK_SERVICES: PublicService[] = [
     shortDescription:
       "Professional video editing and production services that tell your brand story and captivate audiences.",
     summary:
-      "Bizzone Digital creates compelling video content — from promotional videos to social media clips — that engages viewers and drives results.",
-    content: `<p>Video is the most engaging form of content online. Bizzone Digital produces professional videos that capture attention, tell your story and drive action.</p><p>Whether you need promotional videos, social media content, product demonstrations or corporate videos — our team handles everything from concept to final edit.</p><h2>Our Video Services</h2><p><strong>Video Editing</strong> — Professional editing that transforms raw footage into polished, engaging content.</p><p><strong>Promotional Videos</strong> — Compelling brand videos that showcase your products, services and value proposition.</p><p><strong>Social Media Videos</strong> — Short-form content optimized for Instagram, TikTok, Facebook and other platforms.</p><p><strong>Product Demonstrations</strong> — Clear, informative videos that show how your products work.</p><p><strong>Corporate Videos</strong> — Professional videos for internal communications, recruitment or investor presentations.</p><p><strong>Animation & Motion Graphics</strong> — Eye-catching animated content that simplifies complex ideas.</p><p><strong>Video Marketing Strategy</strong> — Strategic planning for video content that aligns with your marketing goals.</p><p>See our portfolio and learn more at <a href="https://www.bizzonedigital.com/" target="_blank" rel="noopener noreferrer">www.bizzonedigital.com</a></p>`,
+      "Compelling video content — from promotional videos to social media clips — that engages viewers and drives results.",
+    content: `<p>Video is the most engaging form of content online. We produce professional videos that capture attention, tell your story and drive action.</p><p>Whether you need promotional videos, social media content, product demonstrations or corporate videos — our team handles everything from concept to final edit.</p><h2>Our Video Services</h2><p><strong>Video Editing</strong> — Professional editing that transforms raw footage into polished, engaging content.</p><p><strong>Promotional Videos</strong> — Compelling brand videos that showcase your products, services and value proposition.</p><p><strong>Social Media Videos</strong> — Short-form content optimized for Instagram, TikTok, Facebook and other platforms.</p><p><strong>Product Demonstrations</strong> — Clear, informative videos that show how your products work.</p><p><strong>Corporate Videos</strong> — Professional videos for internal communications, recruitment or investor presentations.</p><p><strong>Animation & Motion Graphics</strong> — Eye-catching animated content that simplifies complex ideas.</p><p><strong>Video Marketing Strategy</strong> — Strategic planning for video content that aligns with your marketing goals.</p><p>Ready to create powerful video content? Book a free consultation to discuss your video production needs.</p>`,
     icon: "Video",
     image: { url: "/images/video-production.png", alt: "Video Editing & Production Services" },
     group: "digital-marketing",
@@ -1184,10 +1184,10 @@ export const FALLBACK_SERVICES: PublicService[] = [
     ],
     featured: true,
     sortOrder: 18,
-    ctaLabel: "Visit Bizzone Digital",
-    ctaHref: "https://www.bizzonedigital.com/",
+    ctaLabel: "Book a Free Consultation",
+    ctaHref: "/contact",
     seo: {
-      title: "Video Editing & Production | Bizzone Digital",
+      title: "Video Editing & Production | TopAdvice4U",
       description:
         "Professional video editing and production services for promotional videos, social media content and corporate communications.",
     },
