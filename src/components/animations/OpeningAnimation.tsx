@@ -157,9 +157,10 @@ function IntroIcon({
  * attribute, never removes an out-of-tree node.
  */
 export function OpeningAnimation() {
-  const [phase, setPhase] = useState<"idle" | "play" | "exit" | "done">("idle");
+  const [phase, setPhase] = useState<"idle" | "waiting" | "play" | "exit" | "done">("idle");
   const [pct, setPct] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [needsInteraction, setNeedsInteraction] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -183,60 +184,47 @@ export function OpeningAnimation() {
       /* private mode */
     }
 
+    // Check if we're on iOS
+    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
+    if (isIOS || isSafari) {
+      // On iOS/Safari, show tap-to-start button
+      setPhase("waiting");
+      setNeedsInteraction(true);
+    } else {
+      // On other browsers, try autoplay
+      startIntro();
+    }
+  }, []);
+
+  const startIntro = () => {
     document.documentElement.dataset.intro = "playing";
     setPhase("play");
 
-    // Play background music with better browser compatibility
+    // Play background music
     const audio = new Audio("/intro-music.mp3");
-    audio.volume = 0.5; // Set volume to 50%
+    audio.volume = 0.5;
     audio.loop = false;
-    audio.preload = "auto"; // Preload the audio
+    audio.preload = "auto";
     audioRef.current = audio;
     
-    // Try to play music - use Promise to handle autoplay policy
     const playPromise = audio.play();
     
     if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          // Audio playing successfully
-          console.log("Background music started");
-        })
-        .catch((error) => {
-          // Autoplay blocked - this is normal on first visit
-          console.log("Background music autoplay blocked - user interaction required");
-          // Try playing on any user interaction
-          const playOnInteraction = () => {
-            audio.play().catch(() => {});
-            document.removeEventListener('click', playOnInteraction);
-            document.removeEventListener('keydown', playOnInteraction);
-            document.removeEventListener('touchstart', playOnInteraction);
-          };
-          document.addEventListener('click', playOnInteraction);
-          document.addEventListener('keydown', playOnInteraction);
-          document.addEventListener('touchstart', playOnInteraction);
-        });
+      playPromise.catch((error) => {
+        console.log("Background music autoplay blocked");
+      });
     }
 
-    const exitTimer = window.setTimeout(
-      () => setPhase("exit"),
-      TIMING.exitAt * 1000,
-    );
-    const doneTimer = window.setTimeout(() => {
-      setPhase("done");
-    }, TIMING.doneAt * 1000);
+    setTimeout(() => setPhase("exit"), TIMING.exitAt * 1000);
+    setTimeout(() => setPhase("done"), TIMING.doneAt * 1000);
+  };
 
-    return () => {
-      window.clearTimeout(exitTimer);
-      window.clearTimeout(doneTimer);
-      // Stop and cleanup audio
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-        audioRef.current = null;
-      }
-    };
-  }, []);
+  const handleStart = () => {
+    setNeedsInteraction(false);
+    startIntro();
+  };
 
   useEffect(() => {
     if (phase !== "done") return;
@@ -297,6 +285,71 @@ export function OpeningAnimation() {
   // to removeChild an out-of-tree node.
   if (phase === "idle" || phase === "done") {
     return <div ref={overlayRef} aria-hidden="true" style={{ display: "none" }} />;
+  }
+
+  // Tap-to-start screen for iOS/Safari
+  if (phase === "waiting" && needsInteraction) {
+    return (
+      <div
+        ref={overlayRef}
+        data-opening-intro
+        data-phase="waiting"
+        className="fixed inset-0 z-[300] flex items-center justify-center bg-[#02060f]"
+        aria-hidden="true"
+      >
+        <div
+          className="absolute inset-0"
+        >
+          <Image
+            src="/intro/bg.png"
+            alt=""
+            fill
+            priority
+            unoptimized
+            sizes="100vw"
+            className="object-cover object-center opacity-40"
+          />
+        </div>
+        
+        <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center">
+          <div className="relative size-[10rem] sm:size-[12rem]">
+            <Image
+              src="/logo/logo-transparent.png"
+              alt={SITE_DEFAULTS.businessName}
+              fill
+              priority
+              unoptimized
+              className="object-contain"
+            />
+          </div>
+          
+          <div>
+            <p className="font-display text-2xl font-semibold tracking-wide text-white sm:text-3xl">
+              TopAdvice<span className="text-[#7dd3fc]">4U</span>
+            </p>
+            <p className="mt-1 text-xs font-medium tracking-[0.3em] text-white/75 uppercase">
+              Financial Services Inc.
+            </p>
+          </div>
+          
+          <button
+            onClick={handleStart}
+            className="mt-4 rounded-full bg-gradient-to-r from-[#22d3ee] via-[#38bdf8] to-[#f0a020] px-8 py-4 font-semibold text-white shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] active:scale-95"
+          >
+            <span className="flex items-center gap-2">
+              <svg className="size-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              Tap to Experience
+            </span>
+          </button>
+          
+          <p className="mt-2 text-xs text-white/50">
+            Best experienced with sound
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
