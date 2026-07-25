@@ -186,17 +186,37 @@ export function OpeningAnimation() {
     document.documentElement.dataset.intro = "playing";
     setPhase("play");
 
-    // Play background music
+    // Play background music with better browser compatibility
     const audio = new Audio("/intro-music.mp3");
     audio.volume = 0.5; // Set volume to 50%
     audio.loop = false;
+    audio.preload = "auto"; // Preload the audio
     audioRef.current = audio;
     
-    // Try to play music (browser autoplay policies may block this)
-    audio.play().catch(() => {
-      // Autoplay blocked - will play on user interaction
-      console.log("Background music autoplay blocked by browser");
-    });
+    // Try to play music - use Promise to handle autoplay policy
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          // Audio playing successfully
+          console.log("Background music started");
+        })
+        .catch((error) => {
+          // Autoplay blocked - this is normal on first visit
+          console.log("Background music autoplay blocked - user interaction required");
+          // Try playing on any user interaction
+          const playOnInteraction = () => {
+            audio.play().catch(() => {});
+            document.removeEventListener('click', playOnInteraction);
+            document.removeEventListener('keydown', playOnInteraction);
+            document.removeEventListener('touchstart', playOnInteraction);
+          };
+          document.addEventListener('click', playOnInteraction);
+          document.addEventListener('keydown', playOnInteraction);
+          document.addEventListener('touchstart', playOnInteraction);
+        });
+    }
 
     const exitTimer = window.setTimeout(
       () => setPhase("exit"),
