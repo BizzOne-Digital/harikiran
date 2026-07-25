@@ -161,6 +161,7 @@ export function OpeningAnimation() {
   const [pct, setPct] = useState(0);
   const [mounted, setMounted] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useLayoutEffect(() => {
     setMounted(true);
@@ -185,6 +186,18 @@ export function OpeningAnimation() {
     document.documentElement.dataset.intro = "playing";
     setPhase("play");
 
+    // Play background music
+    const audio = new Audio("/intro-music.mp3");
+    audio.volume = 0.5; // Set volume to 50%
+    audio.loop = false;
+    audioRef.current = audio;
+    
+    // Try to play music (browser autoplay policies may block this)
+    audio.play().catch(() => {
+      // Autoplay blocked - will play on user interaction
+      console.log("Background music autoplay blocked by browser");
+    });
+
     const exitTimer = window.setTimeout(
       () => setPhase("exit"),
       TIMING.exitAt * 1000,
@@ -196,6 +209,12 @@ export function OpeningAnimation() {
     return () => {
       window.clearTimeout(exitTimer);
       window.clearTimeout(doneTimer);
+      // Stop and cleanup audio
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
+      }
     };
   }, []);
 
@@ -203,6 +222,20 @@ export function OpeningAnimation() {
     if (phase !== "done") return;
     document.documentElement.dataset.intro = "seen";
     document.body.style.overflow = "";
+    
+    // Fade out and stop music when animation is done
+    if (audioRef.current) {
+      const audio = audioRef.current;
+      const fadeOut = setInterval(() => {
+        if (audio.volume > 0.05) {
+          audio.volume = Math.max(0, audio.volume - 0.05);
+        } else {
+          audio.pause();
+          audio.currentTime = 0;
+          clearInterval(fadeOut);
+        }
+      }, 50);
+    }
   }, [phase]);
 
   useEffect(() => {
