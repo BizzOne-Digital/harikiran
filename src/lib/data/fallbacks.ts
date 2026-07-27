@@ -58,6 +58,8 @@ export interface PublicTeamMember {
   shortBio?: string;
   fullBio?: string;
   photoUrl?: string;
+  phone?: string;
+  email?: string;
   featured: boolean;
   sortOrder: number;
 }
@@ -1202,6 +1204,8 @@ export const FALLBACK_TEAM_MEMBERS: PublicTeamMember[] = [
     shortBio:
       "Lead advisor at TopAdvice4U — helping families and businesses with life insurance, mortgages, investments and retirement conversations.",
     photoUrl: "/team/harkiran-singh.png?v=4",
+    phone: "604-837-3797",
+    email: "topadvice4you@gmail.com",
     featured: true,
     sortOrder: 1,
   },
@@ -1212,6 +1216,8 @@ export const FALLBACK_TEAM_MEMBERS: PublicTeamMember[] = [
     shortBio:
       "Advisory conversations focused on life insurance products, investments for families and children, and clear next steps for retirement and estate planning for individuals and corporations.",
     photoUrl: "/team/jennifer-chan.png",
+    phone: "(604) 218-8869",
+    email: "chan.jennifer15@gmail.com",
     featured: true,
     sortOrder: 2,
   },
