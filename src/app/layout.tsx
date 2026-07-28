@@ -62,7 +62,7 @@ export default async function RootLayout({
         {!isAdminRoute && (
           <Script id="ta4u-intro-gate" strategy="beforeInteractive">{`
             try {
-              if (sessionStorage.getItem("ta4u-opening-seen-v5")) {
+              if (sessionStorage.getItem("ta4u-opening-seen-v6")) {
                 document.documentElement.dataset.intro = "seen";
               } else {
                 document.documentElement.dataset.intro = "pending";

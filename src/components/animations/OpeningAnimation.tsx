@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { SITE_DEFAULTS } from "@/config/site";
 import { cn } from "@/lib/utilities/cn";
 
-const STORAGE_KEY = "ta4u-opening-seen-v5";
+const STORAGE_KEY = "ta4u-opening-seen-v6";
 
 const LEFT_ICONS = [
   { src: "/intro/icon-protect.png", alt: "Protect Your Family" },
@@ -156,13 +156,35 @@ function IntroIcon({
  * identically) and swap it to display:none when done — React only updates an
  * attribute, never removes an out-of-tree node.
  */
+/**
+ * Browsers (especially iOS Safari / Chrome Android) block audio until a
+ * real user gesture. We always gate the intro behind a tap, then call
+ * audio.play() synchronously inside that gesture so music works everywhere.
+ */
+function unlockAndPlay(audio: HTMLAudioElement) {
+  audio.setAttribute("playsinline", "true");
+  audio.setAttribute("webkit-playsinline", "true");
+  audio.playsInline = true;
+  audio.muted = false;
+  audio.volume = 0.55;
+  audio.loop = false;
+  try {
+    audio.currentTime = 0;
+  } catch {
+    /* ignore seek before metadata */
+  }
+  return audio.play();
+}
+
 export function OpeningAnimation() {
   const [phase, setPhase] = useState<"idle" | "waiting" | "play" | "exit" | "done">("idle");
   const [pct, setPct] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const [needsInteraction, setNeedsInteraction] = useState(false);
+  const [musicBlocked, setMusicBlocked] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const timersRef = useRef<number[]>([]);
+  const startedRef = useRef(false);
 
   useLayoutEffect(() => {
     setMounted(true);
@@ -179,72 +201,111 @@ export function OpeningAnimation() {
         setPhase("done");
         return;
       }
+    } catch {
+      /* private mode */
+    }
+
+    // Universal tap gate — required for reliable music on all phones/browsers
+    setPhase("waiting");
+
+    // Create one persistent Audio instance (must NOT remount between waiting → play)
+    const audio = new Audio("/intro-music.mp3");
+    audio.preload = "auto";
+    audio.setAttribute("playsinline", "true");
+    audio.setAttribute("webkit-playsinline", "true");
+    audio.playsInline = true;
+    try {
+      audio.load();
+    } catch {
+      /* ignore */
+    }
+    audioRef.current = audio;
+  }, []);
+
+  const fadeOutMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const fade = window.setInterval(() => {
+      if (audio.volume > 0.05) {
+        audio.volume = Math.max(0, audio.volume - 0.05);
+      } else {
+        audio.pause();
+        try {
+          audio.currentTime = 0;
+        } catch {
+          /* ignore */
+        }
+        window.clearInterval(fade);
+      }
+    }, 50);
+  };
+
+  const beginIntroTimeline = () => {
+    document.documentElement.dataset.intro = "playing";
+    setPhase("play");
+    try {
       sessionStorage.setItem(STORAGE_KEY, "1");
     } catch {
       /* private mode */
     }
 
-    // Check if we're on iOS
-    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    
-    if (isIOS || isSafari) {
-      // On iOS/Safari, show tap-to-start button
-      setPhase("waiting");
-      setNeedsInteraction(true);
-    } else {
-      // On other browsers, try autoplay
-      startIntro();
-    }
-  }, []);
-
-  const startIntro = () => {
-    document.documentElement.dataset.intro = "playing";
-    setPhase("play");
-
-    // Play background music
-    const audio = new Audio("/intro-music.mp3");
-    audio.volume = 0.5;
-    audio.loop = false;
-    audio.preload = "auto";
-    audioRef.current = audio;
-    
-    const playPromise = audio.play();
-    
-    if (playPromise !== undefined) {
-      playPromise.catch((error) => {
-        console.log("Background music autoplay blocked");
-      });
-    }
-
-    setTimeout(() => setPhase("exit"), TIMING.exitAt * 1000);
-    setTimeout(() => setPhase("done"), TIMING.doneAt * 1000);
+    const exitTimer = window.setTimeout(
+      () => setPhase("exit"),
+      TIMING.exitAt * 1000,
+    );
+    const doneTimer = window.setTimeout(
+      () => setPhase("done"),
+      TIMING.doneAt * 1000,
+    );
+    timersRef.current.push(exitTimer, doneTimer);
   };
 
+  /** Must run inside a click / touchend / pointerup handler. */
   const handleStart = () => {
-    setNeedsInteraction(false);
-    startIntro();
+    if (startedRef.current) return;
+    startedRef.current = true;
+    setMusicBlocked(false);
+
+    const audio = audioRef.current;
+    if (audio) {
+      // Synchronous play() inside the gesture unlocks iOS / Android / Safari
+      const playPromise = unlockAndPlay(audio);
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Intro continues; user can tap "Enable sound"
+          setMusicBlocked(true);
+        });
+      }
+    }
+
+    beginIntroTimeline();
+  };
+
+  const handleEnableSound = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    unlockAndPlay(audio)
+      .then(() => setMusicBlocked(false))
+      .catch(() => setMusicBlocked(true));
   };
 
   useEffect(() => {
     if (phase !== "done") return;
     document.documentElement.dataset.intro = "seen";
     document.body.style.overflow = "";
-    
-    // Fade out and stop music when animation is done
-    if (audioRef.current) {
-      const audio = audioRef.current;
-      const fadeOut = setInterval(() => {
-        if (audio.volume > 0.05) {
-          audio.volume = Math.max(0, audio.volume - 0.05);
-        } else {
-          audio.pause();
-          audio.currentTime = 0;
-          clearInterval(fadeOut);
-        }
-      }, 50);
-    }
+    fadeOutMusic();
   }, [phase]);
+
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach((id) => window.clearTimeout(id));
+      timersRef.current = [];
+      const audio = audioRef.current;
+      if (audio) {
+        audio.pause();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (phase !== "play") return;
@@ -270,7 +331,7 @@ export function OpeningAnimation() {
   }, [phase]);
 
   useEffect(() => {
-    if (phase === "play" || phase === "exit") {
+    if (phase === "play" || phase === "exit" || phase === "waiting") {
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = "";
@@ -287,19 +348,18 @@ export function OpeningAnimation() {
     return <div ref={overlayRef} aria-hidden="true" style={{ display: "none" }} />;
   }
 
-  // Tap-to-start screen for iOS/Safari
-  if (phase === "waiting" && needsInteraction) {
+  // Tap-to-start — required so music can play on every browser / phone
+  if (phase === "waiting") {
     return (
       <div
         ref={overlayRef}
         data-opening-intro
         data-phase="waiting"
         className="fixed inset-0 z-[300] flex items-center justify-center bg-[#02060f]"
-        aria-hidden="true"
+        role="dialog"
+        aria-label="Start experience"
       >
-        <div
-          className="absolute inset-0"
-        >
+        <div className="absolute inset-0">
           <Image
             src="/intro/bg.png"
             alt=""
@@ -310,7 +370,7 @@ export function OpeningAnimation() {
             className="object-cover object-center opacity-40"
           />
         </div>
-        
+
         <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center">
           <div className="relative size-[10rem] sm:size-[12rem]">
             <Image
@@ -322,7 +382,7 @@ export function OpeningAnimation() {
               className="object-contain"
             />
           </div>
-          
+
           <div>
             <p className="font-display text-2xl font-semibold tracking-wide text-white sm:text-3xl">
               TopAdvice<span className="text-[#7dd3fc]">4U</span>
@@ -331,21 +391,22 @@ export function OpeningAnimation() {
               Financial Services Inc.
             </p>
           </div>
-          
+
           <button
+            type="button"
             onClick={handleStart}
-            className="mt-4 rounded-full bg-gradient-to-r from-[#22d3ee] via-[#38bdf8] to-[#f0a020] px-8 py-4 font-semibold text-white shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] active:scale-95"
+            className="mt-4 touch-manipulation rounded-full bg-gradient-to-r from-[#22d3ee] via-[#38bdf8] to-[#f0a020] px-8 py-4 font-semibold text-white shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] active:scale-95"
           >
             <span className="flex items-center gap-2">
-              <svg className="size-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
+              <svg className="size-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <path d="M8 5v14l11-7z" />
               </svg>
               Tap to Experience
             </span>
           </button>
-          
+
           <p className="mt-2 text-xs text-white/50">
-            Best experienced with sound
+            Sound on for the full experience
           </p>
         </div>
       </div>
@@ -364,6 +425,15 @@ export function OpeningAnimation() {
       )}
       aria-hidden="true"
     >
+      {musicBlocked && phase === "play" && (
+        <button
+          type="button"
+          onClick={handleEnableSound}
+          className="absolute top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))] z-50 touch-manipulation rounded-full border border-white/25 bg-black/50 px-3 py-2 text-xs font-medium text-white backdrop-blur-sm"
+        >
+          Enable sound
+        </button>
+      )}
       <div
         className="absolute inset-0"
         style={{
